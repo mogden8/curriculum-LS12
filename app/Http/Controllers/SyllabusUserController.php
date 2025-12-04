@@ -276,7 +276,7 @@ class SyllabusUserController extends Controller
         $oldSyllabusOwner = SyllabusUser::where('user_id', $request->input('oldOwnerId'))->where('syllabus_id', $request->input('syllabus_id'))->first();
         $newSyllabusOwner = SyllabusUser::where('user_id', $request->input('newOwnerId'))->where('syllabus_id', $request->input('syllabus_id'))->first();
 
-        //transfer ownership and set old owner to be an editor
+        // transfer ownership and set old owner to be an editor
         $newSyllabusOwner->permission = 1;
         $oldSyllabusOwner->permission = 2;
 

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Program;
 use App\Models\syllabus\Syllabus;
 use App\Models\syllabus\SyllabusUser;
 use App\Models\User;
@@ -124,11 +123,11 @@ class SyllabiTest extends TestCase
         $response = $this->actingAs($user)->post(route('syllabus.assign', $syllabus->id), [
             'syllabus_new_collabs' => [
                 0 => 'test-syllabi-collab@ubc.ca',
-                1 => 'test-syllabi-collab-leave@ubc.ca'
+                1 => 'test-syllabi-collab-leave@ubc.ca',
             ],
             'syllabus_new_permissions' => [
                 0 => 'edit',
-                1 => 'edit'
+                1 => 'edit',
             ],
         ]);
 
@@ -203,7 +202,7 @@ class SyllabiTest extends TestCase
         ]);
     }
 
-    //commenting out unfinished tests
+    // commenting out unfinished tests
     /*
     public function test_syllabus_download()
     {

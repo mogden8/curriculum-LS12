@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Course;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -26,7 +25,7 @@ class LearningOutcomeCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix').'/learningOutcome');
         CRUD::setEntityNameStrings('learningOutcome', 'learningOutcomes');
 
-        //$this->crud->denyAccess('create');
+        // $this->crud->denyAccess('create');
         // Hide the preview button
         $this->crud->denyAccess('show');
     }
@@ -76,7 +75,7 @@ class LearningOutcomeCrudController extends CrudController
             $val = $req['course_id'];
         }
 
-        //takes the value directly from parameters the second time. so confusing
+        // takes the value directly from parameters the second time. so confusing
         $this->crud->addField([
             'name' => 'course_id', // The db column name
             'value' => $val, // Table column heading 'value' => (isset($req['main_form_fields'])) ? $req['main_form_fields'][12]['value'] : $req['course_id']

@@ -49,7 +49,7 @@ class ProgramWizardController extends Controller
             return redirect()->route('programWizard.step4', $program_id);
         }
 
-        //header
+        // header
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $departments = Department::all();
@@ -81,7 +81,7 @@ class ProgramWizardController extends Controller
             ->orderBy('position', 'asc')
             ->get();
 
-        //progress bar
+        // progress bar
         $ploCount = $plos->count();
         $msCount = MappingScale::join('mapping_scale_programs', 'mapping_scales.map_scale_id', '=', 'mapping_scale_programs.map_scale_id')
             ->where('mapping_scale_programs.program_id', $program_id)->count();
@@ -94,7 +94,7 @@ class ProgramWizardController extends Controller
             ->get();
         $hasUncategorized = $unCategorizedPLOS->isNotEmpty();
 
-        //get sequential numbering (1,2,3,4) regardless of position values
+        // get sequential numbering (1,2,3,4) regardless of position values
         $defaultShortForms = [];
         $defaultShortFormsIndex = [];
         $ploDefaultCount = 0;
@@ -104,7 +104,7 @@ class ProgramWizardController extends Controller
             $categoryPLOs = $ploProgramCategories->where('plo_category_id', $category->plo_category_id);
             foreach ($categoryPLOs as $plo) {
                 $ploDefaultCount++;
-                $defaultShortForms[$plo->pl_outcome_id] = 'PLO #' . $ploDefaultCount;
+                $defaultShortForms[$plo->pl_outcome_id] = 'PLO #'.$ploDefaultCount;
                 $defaultShortFormsIndex[$plo->pl_outcome_id] = $ploDefaultCount;
             }
         }
@@ -112,7 +112,7 @@ class ProgramWizardController extends Controller
         // Then process uncategorized PLOs
         foreach ($unCategorizedPLOS as $plo) {
             $ploDefaultCount++;
-            $defaultShortForms[$plo->pl_outcome_id] = 'PLO #' . $ploDefaultCount;
+            $defaultShortForms[$plo->pl_outcome_id] = 'PLO #'.$ploDefaultCount;
             $defaultShortFormsIndex[$plo->pl_outcome_id] = $ploDefaultCount;
         }
 
@@ -148,7 +148,7 @@ class ProgramWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('programWizard.step4', $program_id);
         }
-        //header
+        // header
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $departments = Department::all();
@@ -189,7 +189,7 @@ class ProgramWizardController extends Controller
 
         $program = Program::where('program_id', $program_id)->first();
 
-        //progress bar
+        // progress bar
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
         $msCount = count($mappingScales);
         $courseCount = CourseProgram::where('program_id', $program_id)->count();
@@ -210,7 +210,7 @@ class ProgramWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('programWizard.step4', $program_id);
         }
-        //header
+        // header
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $departments = Department::all();
@@ -301,7 +301,7 @@ class ProgramWizardController extends Controller
         } elseif ($request->isViewer) {
             $isViewer = true;
         }
-        //header
+        // header
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $departments = Department::all();
@@ -319,7 +319,7 @@ class ProgramWizardController extends Controller
         //
         $program = Program::where('program_id', $program_id)->first();
 
-        //progress bar
+        // progress bar
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
         $msCount = MappingScale::join('mapping_scale_programs', 'mapping_scales.map_scale_id', '=', 'mapping_scale_programs.map_scale_id')
             ->where('mapping_scale_programs.program_id', $program_id)->count();
@@ -446,7 +446,7 @@ class ProgramWizardController extends Controller
             $i += 1;
         }
 
-        //get defaultShortForms based on PLO Category, then Creation Order
+        // get defaultShortForms based on PLO Category, then Creation Order
         $defaultShortForms = [];
         $defaultShortFormsIndex = [];
         $plosInOrderCat = [];
@@ -1436,13 +1436,13 @@ class ProgramWizardController extends Controller
 
     public function frequencyDistribution($arr, $store)
     {
-        //Initialize Array for Frequency Distribution
+        // Initialize Array for Frequency Distribution
         $freq = [];
         foreach ($arr as $map) {
             $pl_outcome_id = $map['pl_outcome_id'];
             $course_id = $map['course_id'];
             $map_scale_id = $map['map_scale_id'];
-            //Initialize Array with the value of zero
+            // Initialize Array with the value of zero
             $freq[$pl_outcome_id][$course_id][$map_scale_id] = 0;
         }
         // Store values in the frequency distribution array that was initialized to zero above
@@ -1464,9 +1464,9 @@ class ProgramWizardController extends Controller
                 $weight = 0;
                 $tieResults = [];
                 $id = null;
-                //count the number of times a mapping scales appears for a program learning outcome
+                // count the number of times a mapping scales appears for a program learning outcome
                 foreach ($d as $ms_Id => $mapScaleWeight) {
-                    //check if the current ($mapScaleWeight) > than the previously stored value
+                    // check if the current ($mapScaleWeight) > than the previously stored value
                     if ($weight < $mapScaleWeight) {
                         $weight = $mapScaleWeight;
                         $id = $ms_Id;
@@ -1521,13 +1521,13 @@ class ProgramWizardController extends Controller
 
     public function replaceIdsWithAbv($store, $arr)
     {
-        //Initialize Array for Frequency Distribution
+        // Initialize Array for Frequency Distribution
         $freq = [];
         foreach ($arr as $map) {
             $pl_outcome_id = $map['pl_outcome_id'];
             $course_id = $map['course_id'];
             $map_scale_id = MappingScale::where('map_scale_id', $map['map_scale_id'])->value('abbreviation');
-            //Initialize Array with the value of zero
+            // Initialize Array with the value of zero
             $freq[$pl_outcome_id][$course_id][$map_scale_id] = 0;
         }
         // Store values in the frequency distribution array that was initialized to zero above
@@ -2004,7 +2004,7 @@ class ProgramWizardController extends Controller
                             <th colspan="1" style="background-color: rgba(0, 0, 0, 0.03);"></th>';
 
             if (count($plos) < 7) {
-                //Categorized PLOs
+                // Categorized PLOs
                 foreach ($ploProgramCategories as $index => $plo) {
                     if ($plo->plo_category != null) {
                         if ($plo->plo_shortphrase == '' || $plo->plo_shortphrase == null) {
@@ -2014,7 +2014,7 @@ class ProgramWizardController extends Controller
                         }
                     }
                 }
-                //Uncategorized PLOs
+                // Uncategorized PLOs
                 $uncatIndex = 0;
                 foreach ($plos as $plo) {
                     if ($plo->plo_category == null) {

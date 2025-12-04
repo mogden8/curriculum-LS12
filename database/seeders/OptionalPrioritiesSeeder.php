@@ -20,7 +20,7 @@ class OptionalPrioritiesSeeder extends Seeder
         DB::table('optional_priorities')->truncate();
         DB::table('optional_priority_subcategories')->truncate();
         DB::table('optional_priority_categories')->truncate();
-        //start with categories. there are 2
+        // start with categories. there are 2
         $opcat1 = new OptionalPriorityCategories;
         $opcat1->cat_id = 1;
         $opcat1->cat_name = 'Ministry of Advanced Education and Skills Training';
@@ -31,7 +31,7 @@ class OptionalPrioritiesSeeder extends Seeder
         $opcat1->cat_name = 'UBC Strategic Priorities';
         $opcat1->save();
 
-        //now subcategories. 6 total, (2,4)
+        // now subcategories. 6 total, (2,4)
         $osc = new OptionalPrioritySubcategories;
         $osc->subcat_id = 1;
         $osc->cat_id = 1;

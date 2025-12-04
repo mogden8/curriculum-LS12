@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         //
-        //Role::delete();
+        // Role::delete();
         Role::create(['role' => 'administrator']);
         Role::create(['role' => 'user']);
 

@@ -22,7 +22,7 @@ class ProgramLearningOutcome extends Model
         // Add default ordering by category_id and position
         static::addGlobalScope('order', function ($builder) {
             $builder->orderBy('plo_category_id', 'asc')
-                   ->orderBy('position', 'asc');
+                ->orderBy('position', 'asc');
         });
     }
 

@@ -144,7 +144,7 @@ class AssessmentMethodController extends Controller
 
         $am->a_method = $request->input('a_method');
         $am->weight = $request->input('weight');
-        //$am->course_id = $request->input('course_id');
+        // $am->course_id = $request->input('course_id');
 
         if ($am->save()) {
             $request->session()->flash('success', 'Student assessment method updated');

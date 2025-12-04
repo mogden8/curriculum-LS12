@@ -109,7 +109,7 @@ class StandardsScaleCategoryCrudController extends CrudController
         ]);
 
         $this->crud->addField([   // repeatable
-            'name' => 'Scaletable', //NO SPACE!!!
+            'name' => 'Scaletable', // NO SPACE!!!
             'label' => 'Scales',
             // 'type'  => 'repeatable',
             'type' => 'select_multiple',
@@ -181,11 +181,11 @@ class StandardsScaleCategoryCrudController extends CrudController
     public function destroy($id)
     {
         $this->crud->hasAccessOrFail('delete');
-        //delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
+        // delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
         $sscID = request()->route()->parameter('id');
         $r = DB::table('standard_scales')->where('scale_category_id', '=', $sscID)->delete();
 
-        //this deletes the course record itself.
+        // this deletes the course record itself.
         return $this->crud->delete($id);
     }
 }

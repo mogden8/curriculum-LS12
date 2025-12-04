@@ -18,8 +18,7 @@ class CourseAccessRequestMail extends Mailable
         public readonly User $requester,
         public readonly string $accessType,
         public readonly ?string $requestMessage
-    ) {
-    }
+    ) {}
 
     public function build(): static
     {
@@ -32,5 +31,3 @@ class CourseAccessRequestMail extends Mailable
             ]);
     }
 }
-
-

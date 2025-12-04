@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
 class LearningOutcomeController extends Controller
@@ -288,7 +288,7 @@ class LearningOutcomeController extends Controller
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
 
         $callback = static function () use ($course, $outcomes): void {
@@ -311,7 +311,7 @@ class LearningOutcomeController extends Controller
             fputcsv($handle, $headerRow);
 
             $groupVendorGuid = sprintf('group:course-%d', $course->course_id);
-            $groupTitle = sprintf('%s Outcomes', $course->course_code . ' ' . $course->course_num);
+            $groupTitle = sprintf('%s Outcomes', $course->course_code.' '.$course->course_num);
             $groupRow = [
                 $groupVendorGuid,
                 'group',

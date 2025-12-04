@@ -11,11 +11,17 @@ class NotifyCourseAddedToProgramMail extends Mailable
     use Queueable, SerializesModels;
 
     public $course_id;
+
     public $course_code;
+
     public $course_num;
+
     public $course_title;
+
     public $program_title;
+
     public $program_id;
+
     public $is_required;
 
     /**

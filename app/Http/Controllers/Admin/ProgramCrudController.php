@@ -82,7 +82,7 @@ class ProgramCrudController extends CrudController
                 1 => '✔️Active',
             ],
             // optional
-            //'inline'      => false, // show the radios all on the same line?
+            // 'inline'      => false, // show the radios all on the same line?
         ]);
 
         $this->crud->addColumn([
@@ -190,7 +190,7 @@ class ProgramCrudController extends CrudController
                 1 => 'Active',
             ],
             // optional
-            //'inline'      => false, // show the radios all on the same line?
+            // 'inline'      => false, // show the radios all on the same line?
             'wrapper' => ['class' => 'form-group col-md-4'],
         ]);
 
@@ -244,8 +244,8 @@ class ProgramCrudController extends CrudController
                     'name' => 'plo_category',
                     'label' => 'Name:',
                     'type' => 'valid_text',
-                    'except' => 'Uncategorized', //If the heading is uncategorized disable it to prevent user errors with the string
-                    'attributes' => ['req' => 'true',  //need to add this to a custom repeatable view
+                    'except' => 'Uncategorized', // If the heading is uncategorized disable it to prevent user errors with the string
+                    'attributes' => ['req' => 'true',  // need to add this to a custom repeatable view
                     ],
                     'wrapper' => ['class' => 'hidden-label form-group col-sm-8'],
                 ],
@@ -280,7 +280,7 @@ class ProgramCrudController extends CrudController
                 'colour',
             ],
             'category_relation' => 'mapping_scale_categories-mapping_scale_categories_id-msc_title-description',
-            //the Entity and foreign key used to categorize the checkboxes, if any. followed by category header and hint respectively
+            // the Entity and foreign key used to categorize the checkboxes, if any. followed by category header and hint respectively
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
@@ -292,8 +292,8 @@ class ProgramCrudController extends CrudController
             'entity' => 'courses', // the method that defines the relationship in your Model
             'model' => \App\Models\Course::class, // foreign key model
             'attribute' => 'course_title',
-            'tooltip' => 'course_title', //this will show up when mousing over items
-            'group_by_cat' => 'course_code', //the attribute to group by
+            'tooltip' => 'course_title', // this will show up when mousing over items
+            'group_by_cat' => 'course_code', // the attribute to group by
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
@@ -335,7 +335,7 @@ class ProgramCrudController extends CrudController
                 1 => '✔️Active',
             ],
             // optional
-            //'inline'      => false, // show the radios all on the same line?
+            // 'inline'      => false, // show the radios all on the same line?
         ]);
 
         $this->crud->addColumn([
@@ -353,15 +353,15 @@ class ProgramCrudController extends CrudController
     public function destroy($id)
     {
         $this->crud->hasAccessOrFail('delete');
-        //delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
+        // delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
         $prgID = request()->route()->parameter('id');
-        //first get the relevant ids
+        // first get the relevant ids
         $PLOs = \App\Models\ProgramLearningOutcome::where('program_id', '=', $prgID)->get();
         $setOfPLO = [];
         foreach ($PLOs as $plo) {
             array_push($setOfPLO, $plo->pl_outcome_id);
         }
-        //deleting records
+        // deleting records
         $r = DB::table('mapping_scale_programs')->where('program_id', $prgID)->delete();
         $r = DB::table('p_l_o_categories')->where('program_id', $prgID)->delete();
         $r = DB::table('program_learning_outcomes')->where('program_id', $prgID)->delete();
@@ -369,7 +369,7 @@ class ProgramCrudController extends CrudController
         $r = DB::table('outcome_maps')->whereIn('pl_outcome_id', $setOfPLO)->delete();
         $r = DB::table('program_users')->where('program_id', '=', $prgID)->delete();
 
-        //this deletes the program record itself.
+        // this deletes the program record itself.
         return $this->crud->delete($id);
     }
 }

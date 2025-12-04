@@ -173,7 +173,7 @@ class ProgramUserController extends Controller
                             $program->save();
 
                             // email user to be added
-                            //TODO: SEND EMAIL TO NEW USER WITH THEIR PASSWORD
+                            // TODO: SEND EMAIL TO NEW USER WITH THEIR PASSWORD
                             Mail::to($newUser->email)->send(new NotifyNewProgramUserMail($program->program, $currentUser->name, implode($pass), $newUser->email));
                             // email the owner letting them know they have added a new collaborator
                             Mail::to($currentUser->email)->send(new NotifyProgramOwnerMail($program->program, $newUser->name));
@@ -277,7 +277,7 @@ class ProgramUserController extends Controller
         $oldProgramOwner = ProgramUser::where('user_id', $request->input('oldOwnerId'))->where('program_id', $request->input('program_id'))->first();
         $newProgramOwner = ProgramUser::where('user_id', $request->input('newOwnerId'))->where('program_id', $request->input('program_id'))->first();
 
-        //transfer ownership and set old owner to be an editor
+        // transfer ownership and set old owner to be an editor
         $newProgramOwner->permission = 1;
         $oldProgramOwner->permission = 2;
 

@@ -278,7 +278,7 @@ class CourseUserController extends Controller
         $oldCourseOwner = CourseUser::where('user_id', $request->input('oldOwnerId'))->where('course_id', $request->input('course_id'))->first();
         $newCourseOwner = CourseUser::where('user_id', $request->input('newOwnerId'))->where('course_id', $request->input('course_id'))->first();
 
-        //transfer ownership and set old owner to be an editor
+        // transfer ownership and set old owner to be an editor
         $newCourseOwner->permission = 1;
         $oldCourseOwner->permission = 2;
 

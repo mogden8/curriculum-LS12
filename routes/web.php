@@ -30,7 +30,6 @@ use App\Mail\Invitation;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +41,6 @@ use Illuminate\Support\Facades\URL;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::get('/', function () {
     return view('pages.landing');
@@ -151,7 +149,7 @@ Route::post('/am/store', [AssessmentMethodController::class, 'store'])->name('am
 
 Route::resource('/outcomeMap', OutcomeMapController::class);
 Route::post('/store/OutcomeMap', [OutcomeMapController::class, 'store'])->name('outcomeMap.store');
-//Route for standards mapping
+// Route for standards mapping
 Route::resource('/standardsOutcomeMap', StandardsOutcomeMapController::class);
 Route::post('/store/standardsOutcomeMap', [StandardsOutcomeMapController::class, 'store'])->name('standardsOutcomeMap.store');
 
@@ -267,5 +265,5 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
     $exitCode = Artisan::call('cache:clear');
 
-    return 'DONE'; //Return anything
+    return 'DONE'; // Return anything
 });

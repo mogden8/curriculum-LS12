@@ -45,7 +45,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -110,7 +110,7 @@ class CourseWizardController extends Controller
             return redirect()->route('courseWizard.step7', $course_id);
         }
 
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -179,7 +179,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -246,7 +246,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -474,7 +474,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             $isViewer = true;
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
