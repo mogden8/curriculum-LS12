@@ -54,7 +54,7 @@ class ProgramLearningOutcomeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // validate request data
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
         ]);
 
@@ -158,7 +158,7 @@ class ProgramLearningOutcomeController extends Controller
     public function update(Request $request, $programLearningOutcomeID): RedirectResponse
     {
         // validate request input
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
             'plo' => 'required',
         ]);

@@ -44,7 +44,7 @@ class PLOCategoryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // validate request data
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
         ]);
 
@@ -127,7 +127,7 @@ class PLOCategoryController extends Controller
     public function update(Request $request, $plo_category_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
 
             'category' => 'required',
         ]);

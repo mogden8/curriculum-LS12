@@ -130,7 +130,7 @@ class AssessmentMethodController extends Controller
     public function update(Request $request, $a_method_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'a_method' => 'required',
             'weight' => 'required',
         ]);

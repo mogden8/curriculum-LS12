@@ -71,7 +71,7 @@ class ProgramController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'program' => 'required',
             'level' => 'required',
             // 'faculty'=> 'required',
@@ -141,7 +141,7 @@ class ProgramController extends Controller
     public function update(Request $request, $program_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'program' => 'required',
             'level' => 'required',
             // 'faculty'=> 'required',
@@ -3194,7 +3194,7 @@ class ProgramController extends Controller
     public function duplicate(Request $request, $program_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'program' => 'required',
         ]);
 

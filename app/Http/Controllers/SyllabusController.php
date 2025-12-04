@@ -878,7 +878,7 @@ class SyllabusController extends Controller
     public function getCourseInfo(Request $request)
     {
         // validate request data
-        $this->validate($request, [
+        $request->validate([
             'course_id' => 'required',
         ]);
         $courseId = $request->course_id;

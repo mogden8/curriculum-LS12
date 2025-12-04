@@ -20,7 +20,7 @@ class OptionalPriorities extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $request->validate([
             'course_id' => 'required',
         ]);
 

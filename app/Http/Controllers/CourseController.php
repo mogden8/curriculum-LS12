@@ -74,7 +74,7 @@ class CourseController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // validate request input
-        $this->validate($request, [
+        $request->validate([
             'course_code' => 'required|max:4',
             'course_title' => 'required',
             'course_num' => 'max:30',
@@ -204,7 +204,7 @@ class CourseController extends Controller
      */
     public function addProgramToCourse(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $request->validate([
             'course_id' => 'required',
             'program_id' => 'required',
         ]);
@@ -301,7 +301,7 @@ class CourseController extends Controller
     public function update(Request $request, $course_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'course_code' => 'required',
             'course_title' => 'required',
         ]);
@@ -818,7 +818,7 @@ class CourseController extends Controller
     public function duplicate(Request $request, $course_id): RedirectResponse
     {
 
-        $this->validate($request, [
+        $request->validate([
             'course_code' => 'required',
             'course_num' => 'required',
             'course_title' => 'required',

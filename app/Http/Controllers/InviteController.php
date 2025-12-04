@@ -38,7 +38,7 @@ class InviteController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        $this->validate($request, [
+        $request->validate([
             'email' => 'required',
         ]);
 

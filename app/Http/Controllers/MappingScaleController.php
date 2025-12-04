@@ -47,7 +47,7 @@ class MappingScaleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
 
             'title' => 'required',
             'abbreviation' => 'required',
@@ -116,7 +116,7 @@ class MappingScaleController extends Controller
     {
 
         //
-        $this->validate($request, [
+        $request->validate([
 
             'title' => 'required',
             'abbreviation' => 'required',

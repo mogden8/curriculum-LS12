@@ -21,7 +21,7 @@ class CourseProgramController extends Controller
      */
     public function addCoursesToProgram(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
         ]);
 

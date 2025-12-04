@@ -33,7 +33,7 @@ class StandardsOutcomeMapController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        $this->validate($request, [
+        $request->validate([
             'map' => 'required',
         ]);
 

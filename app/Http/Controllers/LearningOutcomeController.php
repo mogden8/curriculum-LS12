@@ -147,7 +147,7 @@ class LearningOutcomeController extends Controller
     public function update(Request $request, $l_outcome_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'l_outcome' => 'required',
         ]);
 
