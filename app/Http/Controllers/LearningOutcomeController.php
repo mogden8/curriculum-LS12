@@ -8,24 +8,22 @@ use App\Models\LearningOutcome;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
-class LearningOutcomeController extends Controller
+class LearningOutcomeController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse
@@ -147,7 +145,7 @@ class LearningOutcomeController extends Controller
     public function update(Request $request, $l_outcome_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'l_outcome' => 'required',
         ]);
 
@@ -288,7 +286,7 @@ class LearningOutcomeController extends Controller
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
 
         $callback = static function () use ($course, $outcomes): void {
@@ -311,7 +309,7 @@ class LearningOutcomeController extends Controller
             fputcsv($handle, $headerRow);
 
             $groupVendorGuid = sprintf('group:course-%d', $course->course_id);
-            $groupTitle = sprintf('%s Outcomes', $course->course_code . ' ' . $course->course_num);
+            $groupTitle = sprintf('%s Outcomes', $course->course_code.' '.$course->course_num);
             $groupRow = [
                 $groupVendorGuid,
                 'group',

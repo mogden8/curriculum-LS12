@@ -72,7 +72,7 @@ class Program extends Model
             $ploCats[$i]['programOutcome'] = json_encode(\App\Models\ProgramLearningOutcome::where('plo_category_id', '=', $ploCats[$i]['plo_category_id'])
                 ->get()->toArray());
         }
-        //this gets the uncategorized records
+        // this gets the uncategorized records
         $ploCats[count($ploCats)]['programOutcome'] = json_encode(\App\Models\ProgramLearningOutcome::where('plo_category_id', '=', null)->where('program_id', '=', $prgID)
             ->get()->toArray());
         $ploCats[count($ploCats) - 1]['plo_category'] = 'Uncategorized';
@@ -88,22 +88,22 @@ class Program extends Model
         if (! is_array($jdata)) {
             $jdata = [];
         }
-        //**********
-        //crud for categories
-        //**********
-        $existingCats = \App\Models\PLOCategory::where('program_id', '=', $prgID)->get();      //all cats in the db for this program
-        $setCats = [];  //this is the set of ids for easy db access
+        // **********
+        // crud for categories
+        // **********
+        $existingCats = \App\Models\PLOCategory::where('program_id', '=', $prgID)->get();      // all cats in the db for this program
+        $setCats = [];  // this is the set of ids for easy db access
         $setDel = [];
         foreach ($existingCats as $cat) {
             array_push($setCats, $cat->plo_category_id);
         }
-        $nSc = [];      //rows already in the DB (they have an ID)
+        $nSc = [];      // rows already in the DB (they have an ID)
         foreach ($jdata as $row) {
             if (property_exists($row, 'plo_category_id')) {
                 array_push($nSc, $row->plo_category_id);
             }
         }
-        $setDel = array_filter($setCats, function ($element) use ($nSc) {  //filters from the db records those not present on the page. these are deleted
+        $setDel = array_filter($setCats, function ($element) use ($nSc) {  // filters from the db records those not present on the page. these are deleted
             return ! (in_array($element, $nSc));
         });
         $aData = [];
@@ -113,7 +113,7 @@ class Program extends Model
                 $aData[$key] = $item;
 
                 continue;
-            } //do not insert uncategorized as a category
+            } // do not insert uncategorized as a category
             if (property_exists($row, 'plo_category_id') && $row->plo_category_id != '') {
                 $id = $row->plo_category_id;
                 if (in_array($id, $setCats)) {
@@ -131,15 +131,15 @@ class Program extends Model
         foreach ($sPD as $obj) {
             array_push($setPendingDel, $obj->pl_outcome_id);
         }
-        //these no longer exist due to their category being destroyed
+        // these no longer exist due to their category being destroyed
         DB::table('program_learning_outcomes')->whereIn('pl_outcome_id', $setPendingDel)->delete();
         DB::table('outcome_maps')->whereIn('pl_outcome_id', $setPendingDel)->delete();
-        //*************
-        //for each category:: crud for PLOs  //
-        //**********
+        // *************
+        // for each category:: crud for PLOs  //
+        // **********
         $ploObjs = [];
         $existingPLOs = \App\Models\ProgramLearningOutcome::where('program_id', $prgID)->get();
-        $setPLOs = [];  //this is the set of ids for easy db access
+        $setPLOs = [];  // this is the set of ids for easy db access
         foreach ($existingPLOs as $plo) {
             array_push($setPLOs, $plo->pl_outcome_id);
         }
@@ -155,17 +155,17 @@ class Program extends Model
                     if (property_exists($row, 'pl_outcome_id')) {
                         array_push($nSc, $row->pl_outcome_id);
                     }
-                    $arRow = json_decode(json_encode($row), true); //turns the obj to an array
-                    $arRow['plo_category_id'] = $cat['plo_category_id']; //this will be used later
+                    $arRow = json_decode(json_encode($row), true); // turns the obj to an array
+                    $arRow['plo_category_id'] = $cat['plo_category_id']; // this will be used later
                     array_push($ploObjs, $arRow);
                 }
             }
         }
 
-        $setDel = array_filter($setPLOs, function ($element) use ($nSc) {  //filters from the db records those still present on the page. others are deleted
+        $setDel = array_filter($setPLOs, function ($element) use ($nSc) {  // filters from the db records those still present on the page. others are deleted
             return ! (in_array($element, $nSc));
         });
-        //rather than updating it, so it should be fixed. doesnt work because the list contains the ids of moved records despite their having been deleted.
+        // rather than updating it, so it should be fixed. doesnt work because the list contains the ids of moved records despite their having been deleted.
         foreach ($ploObjs as $row) {
             if (isset($row['pl_outcome_id'])) {
                 $id = $row['pl_outcome_id'];
@@ -189,7 +189,7 @@ class Program extends Model
             }
 
         }
-        DB::table('program_learning_outcomes')->whereIn('pl_outcome_id', $setDel)->delete(); //by deleting here, I am avoiding the refactoring for now. Tis will delete and recreate a record
+        DB::table('program_learning_outcomes')->whereIn('pl_outcome_id', $setDel)->delete(); // by deleting here, I am avoiding the refactoring for now. Tis will delete and recreate a record
         DB::table('outcome_maps')->whereIn('pl_outcome_id', $setDel)->delete();
 
     }

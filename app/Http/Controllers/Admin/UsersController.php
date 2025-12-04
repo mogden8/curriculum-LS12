@@ -8,13 +8,15 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UsersController extends Controller
+class UsersController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth');
-
+        return [
+            'auth',
+        ];
     }
 
     /**

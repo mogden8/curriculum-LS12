@@ -141,13 +141,13 @@ class CategoriesCrudController extends CrudController
     public function destroy($id)
     {
         $this->crud->hasAccessOrFail('delete');
-        //delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
+        // delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
         $opcID = request()->route()->parameter('id');
 
-        //deleting records
+        // deleting records
         $r = DB::table('optional_priority_subcategories')->where('cat_id', '=', $opcID)->delete();
 
-        //this deletes the course record itself.
+        // this deletes the course record itself.
         return $this->crud->delete($id);
     }
 }

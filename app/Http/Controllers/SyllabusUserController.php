@@ -12,20 +12,18 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-class SyllabusUserController extends Controller
+class SyllabusUserController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index()
@@ -276,7 +274,7 @@ class SyllabusUserController extends Controller
         $oldSyllabusOwner = SyllabusUser::where('user_id', $request->input('oldOwnerId'))->where('syllabus_id', $request->input('syllabus_id'))->first();
         $newSyllabusOwner = SyllabusUser::where('user_id', $request->input('newOwnerId'))->where('syllabus_id', $request->input('syllabus_id'))->first();
 
-        //transfer ownership and set old owner to be an editor
+        // transfer ownership and set old owner to be an editor
         $newSyllabusOwner->permission = 1;
         $oldSyllabusOwner->permission = 2;
 

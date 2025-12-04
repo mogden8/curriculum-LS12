@@ -14,28 +14,25 @@ use App\Models\OutcomeAssessment;
 use App\Models\Program;
 use App\Models\ProgramLearningOutcome;
 use App\Models\ProgramUser;
-use App\Models\Standard;
 use App\Models\StandardCategory;
 use App\Models\StandardsOutcomeMap;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class HomeController extends Controller
+class HomeController extends Controller implements HasMiddleware
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     /**
@@ -43,7 +40,7 @@ class HomeController extends Controller
      */
     public function index(Request $request): Renderable
     {
-        //Artisan::call('route:clear', []);
+        // Artisan::call('route:clear', []);
 
         $campuses = Campus::all();
         $faculties = Faculty::orderBy('faculty')->get();
@@ -100,7 +97,7 @@ class HomeController extends Controller
         // returns a collection of standard_categories, used in the create course modal
         $standard_categories = DB::table('standard_categories')->get();
 
-        //for progress bar
+        // for progress bar
         $progressBar = [];
         $progressBarMsg = [];
         $count = 0;

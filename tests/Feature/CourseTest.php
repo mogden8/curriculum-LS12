@@ -23,10 +23,10 @@ class CourseTest extends TestCase
         $delivery_modalities = ['O', 'B', 'I'];
         $semesters = ['W1', 'W2', 'S1', 'S2'];
 
-        //$user = User::factory()->count(1)->make();
-        //$user = User::first();
+        // $user = User::factory()->count(1)->make();
+        // $user = User::first();
 
-        //Create Verified User
+        // Create Verified User
         DB::table('users')->insert([
             'name' => 'Test Course',
             'email' => 'test-course@ubc.ca',
@@ -93,7 +93,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //LearningOutcomeController@store
+        // LearningOutcomeController@store
 
         $response = $this->actingAs($user)->post(route('courses.outcomes.store'), [
             'current_l_outcome' => [
@@ -129,7 +129,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //LearningOutcomeController@store
+        // LearningOutcomeController@store
 
         $response = $this->actingAs($user)->post(route('la.store'), [
             'current_l_activities' => [
@@ -165,7 +165,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //LearningOutcomeController@store
+        // LearningOutcomeController@store
 
         $response = $this->actingAs($user)->post(route('am.store'), [
             'current_a_methods' => [
@@ -220,18 +220,18 @@ class CourseTest extends TestCase
             'a_methods' => [
                 $learningOutcome1->l_outcome_id => [
                     0 => $assessmentMethods[0]->a_method_id,
-                    //This is mapping CLO #1 to the first assessment method
+                    // This is mapping CLO #1 to the first assessment method
                 ],
                 $learningOutcome2->l_outcome_id => [
                     0 => $assessmentMethods[0]->a_method_id,
                     1 => $assessmentMethods[1]->a_method_id,
-                    //This is mapping CLO #2 to the first and second assessment method
+                    // This is mapping CLO #2 to the first and second assessment method
                 ],
             ],
             'l_activities' => [
                 $learningOutcome1->l_outcome_id => [
                     0 => $learningActivities[0]->l_activity_id,
-                    //This is mapping only CLO #1 to the first Learning Activity
+                    // This is mapping only CLO #1 to the first Learning Activity
                 ],
             ],
             'l_outcomes_pos' => [
@@ -315,7 +315,7 @@ class CourseTest extends TestCase
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
         $clo = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 2')->first();
 
-        //create test program
+        // create test program
         DB::table('programs')->insert([
             'program' => 'Testing Program for Courses',
             'faculty' => 'Irving K. Barber Faculty of Science',
@@ -329,7 +329,7 @@ class CourseTest extends TestCase
 
         $program = Program::where('program', 'Testing Program for Courses')->first();
 
-        //must set mapping scale (we will use 3 point scale I/D/A)
+        // must set mapping scale (we will use 3 point scale I/D/A)
         DB::table('mapping_scale_programs')->insert([
             'map_scale_id' => 1,
             'program_id' => $program->program_id,
@@ -349,7 +349,7 @@ class CourseTest extends TestCase
             'updated_at' => Carbon::now(),
         ]);
 
-        //create test PLOs
+        // create test PLOs
         DB::table('program_learning_outcomes')->insert([
             'plo_shortphrase' => 'Short PLO 1',
             'pl_outcome' => 'Course Testing PLO 1',
@@ -360,7 +360,7 @@ class CourseTest extends TestCase
         ]);
 
         $plo = ProgramLearningOutcome::where('pl_outcome', 'Course Testing PLO 1')->first();
-        //must add course to program
+        // must add course to program
         DB::table('course_programs')->insert([
             'course_id' => $course->course_id,
             'program_id' => $program->program_id,
@@ -369,14 +369,14 @@ class CourseTest extends TestCase
         ]);
 
         DB::table('courses')->where('course_id', $course->course_id)->update(['program_id' => $program->program_id]);
-        //test mapping CLOs to PLOs
+        // test mapping CLOs to PLOs
 
         $response = $this->actingAs($user)->post(route('outcomeMap.store'), [
             'course_id' => $course->course_id,
             'l_outcome_id' => $clo->l_outcome_id,
             'map' => [
                 $clo->l_outcome_id => [
-                    $plo->pl_outcome_id => 1, //this is setting the mapping scale option to I, since that is the map_scale_id (0=N/A,1=I,2=D,3=A)
+                    $plo->pl_outcome_id => 1, // this is setting the mapping scale option to I, since that is the map_scale_id (0=N/A,1=I,2=D,3=A)
                 ],
             ],
         ]);
@@ -398,7 +398,7 @@ class CourseTest extends TestCase
             'course_id' => $course->course_id,
             'optionalItem' => [
                 0 => '70',
-                //Assigning Optional Priority with ID=70 to the course
+                // Assigning Optional Priority with ID=70 to the course
             ],
         ]);
 
@@ -443,7 +443,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //LearningOutcomeController@store
+        // LearningOutcomeController@store
 
         $response = $this->actingAs($user)->post(route('am.store'), [
             'current_a_methods' => [
@@ -472,7 +472,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //LearningOutcomeController@store
+        // LearningOutcomeController@store
 
         $response = $this->actingAs($user)->post(route('la.store'), [
             'current_l_activities' => [
@@ -491,12 +491,12 @@ class CourseTest extends TestCase
 
     }
 
-    public function test_standardsOutcomeMap_store(): void
+    public function test_standards_outcome_map_store(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //setting this mapping to all "Introduced" for this course, except 1
+        // setting this mapping to all "Introduced" for this course, except 1
         $response = $this->actingAs($user)->post(route('standardsOutcomeMap.store'), [
             'course_id' => $course->course_id,
             'map' => [
@@ -517,8 +517,8 @@ class CourseTest extends TestCase
             'standard_id' => 6,
         ]);
 
-        //this is failing when it should be working
-        //cannot get out of for loop in StandardOutcomeMapController
+        // this is failing when it should be working
+        // cannot get out of for loop in StandardOutcomeMapController
 
     }
 
@@ -527,7 +527,7 @@ class CourseTest extends TestCase
         $user = User::where('email', 'test-course@ubc.ca')->first();
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
 
-        //Create Verified User for Course Collaboration Testing
+        // Create Verified User for Course Collaboration Testing
         DB::table('users')->insert([
             'name' => 'Test Course Collab',
             'email' => 'test-course-collab@ubc.ca',
@@ -582,9 +582,9 @@ class CourseTest extends TestCase
         $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
         $user2 = User::where('email', 'test-course-collab@ubc.ca')->first();
 
-        //courses.unassign is an unused route, rather within CourseUserController.php in the store() method
+        // courses.unassign is an unused route, rather within CourseUserController.php in the store() method
         // "$this->destroy($savedCourseUser);" is called when the new list of users is shorter than the current
-        //Therefore, we just use the same path courses.assign and pass an empty array
+        // Therefore, we just use the same path courses.assign and pass an empty array
 
         $response = $this->actingAs($user2)->post(route('courses.assign', $course->course_id), []);
 
@@ -607,14 +607,14 @@ class CourseTest extends TestCase
             'course_id' => $course->course_id,
         ]);
 
-        //Delete Test User(s)
-        //We are testing Course and CourseUser routes here, so deleting manually is fine to clean up.
+        // Delete Test User(s)
+        // We are testing Course and CourseUser routes here, so deleting manually is fine to clean up.
         User::where('email', 'test-course-collab@ubc.ca')->delete();
         User::where('email', 'test-course@ubc.ca')->delete();
-        //Delete Duplicate Course
+        // Delete Duplicate Course
         Course::where('course_title', 'Intro to Unit Testing')->delete();
 
-        //Will also delete Programs to cleanup
+        // Will also delete Programs to cleanup
         CourseProgram::where('program_id', $program->program_id)->delete();
         Program::where('program_id', $program->program_id)->delete();
         MappingScaleProgram::where('program_id', $program->program_id)->delete();

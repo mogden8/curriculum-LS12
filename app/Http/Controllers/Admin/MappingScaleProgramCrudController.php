@@ -25,7 +25,7 @@ class MappingScaleProgramCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix').'/mappingScaleProgram');
         CRUD::setEntityNameStrings('mappingScaleProgram', 'mappingScalePrograms');
 
-        //$this->crud->denyAccess('create');
+        // $this->crud->denyAccess('create');
     }
 
     protected function setupCreateOperation()
@@ -45,7 +45,7 @@ class MappingScaleProgramCrudController extends CrudController
             'entity' => 'mappingScaleLevels',
             'model' => \App\Models\MappingScaleProgram::class,
             'attribute' => 'title',
-            //'attributes' => ['disabled' => 'true'],
+            // 'attributes' => ['disabled' => 'true'],
             'wrapper' => ['class' => 'form-group col-md-2'],
         ]);
 
@@ -61,7 +61,7 @@ class MappingScaleProgramCrudController extends CrudController
             $val = $req['program_id'];
         }
 
-        //takes the value directly from parameters the second time. so confusing
+        // takes the value directly from parameters the second time. so confusing
         $this->crud->addField([
             'name' => 'program_id', // The db column name
             'value' => $val, // Table column heading 'value' => (isset($req['main_form_fields'])) ? $req['main_form_fields'][12]['value'] : $req['course_id']

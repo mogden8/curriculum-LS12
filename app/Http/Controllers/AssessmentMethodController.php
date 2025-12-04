@@ -7,19 +7,17 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Throwable;
 
-class AssessmentMethodController extends Controller
+class AssessmentMethodController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse
@@ -130,7 +128,7 @@ class AssessmentMethodController extends Controller
     public function update(Request $request, $a_method_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'a_method' => 'required',
             'weight' => 'required',
         ]);
@@ -144,7 +142,7 @@ class AssessmentMethodController extends Controller
 
         $am->a_method = $request->input('a_method');
         $am->weight = $request->input('weight');
-        //$am->course_id = $request->input('course_id');
+        // $am->course_id = $request->input('course_id');
 
         if ($am->save()) {
             $request->session()->flash('success', 'Student assessment method updated');

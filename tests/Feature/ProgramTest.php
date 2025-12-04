@@ -97,7 +97,7 @@ class ProgramTest extends TestCase
 
         }
         */
-    public function test_addDefaultMappingScale(): void
+    public function test_add_default_mapping_scale(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
         $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
@@ -113,7 +113,7 @@ class ProgramTest extends TestCase
 
     }
 
-    public function test_mappingScale_store(): void
+    public function test_mapping_scale_store(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
         $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
@@ -132,7 +132,7 @@ class ProgramTest extends TestCase
 
     }
 
-    public function test_addCoursesToProgram(): void
+    public function test_add_courses_to_program(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
         $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
@@ -161,7 +161,7 @@ class ProgramTest extends TestCase
 
     }
 
-    public function test_editCourseRequired(): void
+    public function test_edit_course_required(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
         $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
@@ -183,7 +183,7 @@ class ProgramTest extends TestCase
 
     }
 
-    public function test_duplicateProgram(): void
+    public function test_duplicate_program(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
         $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();

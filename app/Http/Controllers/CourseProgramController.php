@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotifyCourseAddedToProgramMail;
 use App\Models\Course;
 use App\Models\CourseProgram;
 use App\Models\Program;
@@ -9,7 +10,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\NotifyCourseAddedToProgramMail;
 use Illuminate\Support\Facades\Mail;
 
 class CourseProgramController extends Controller
@@ -21,7 +21,7 @@ class CourseProgramController extends Controller
      */
     public function addCoursesToProgram(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
         ]);
 
@@ -58,7 +58,7 @@ class CourseProgramController extends Controller
                     $course->course_title,
                     $program->program,
                     $program->program_id,
-                    (bool)$isCourseRequired
+                    (bool) $isCourseRequired
                 ));
             }
 

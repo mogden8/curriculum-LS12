@@ -7,19 +7,17 @@ use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Throwable;
 
-class PLOCategoryController extends Controller
+class PLOCategoryController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse
@@ -44,7 +42,7 @@ class PLOCategoryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // validate request data
-        $this->validate($request, [
+        $request->validate([
             'program_id' => 'required',
         ]);
 
@@ -127,7 +125,7 @@ class PLOCategoryController extends Controller
     public function update(Request $request, $plo_category_id): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
 
             'category' => 'required',
         ]);

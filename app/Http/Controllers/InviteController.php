@@ -7,16 +7,19 @@ use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class InviteController extends Controller
+class InviteController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function invite()
@@ -38,7 +41,7 @@ class InviteController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        $this->validate($request, [
+        $request->validate([
             'email' => 'required',
         ]);
 

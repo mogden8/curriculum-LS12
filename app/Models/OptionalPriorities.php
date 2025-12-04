@@ -18,7 +18,7 @@ class OptionalPriorities extends Model
 
     protected $primaryKey = 'op_id';
 
-    //protected $guarded = ['op_id']; //its guarded or fillable, one or the other
+    // protected $guarded = ['op_id']; //its guarded or fillable, one or the other
     protected $fillable = ['op_id', 'subcat_id', 'optional_priority', 'isCheckable'];
 
     public function optionalPrioritySubcategory(): BelongsTo

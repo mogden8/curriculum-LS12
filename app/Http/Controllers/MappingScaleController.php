@@ -11,18 +11,16 @@ use App\Models\ProgramLearningOutcome;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class MappingScaleController extends Controller
+class MappingScaleController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse
@@ -47,7 +45,7 @@ class MappingScaleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-        $this->validate($request, [
+        $request->validate([
 
             'title' => 'required',
             'abbreviation' => 'required',
@@ -116,7 +114,7 @@ class MappingScaleController extends Controller
     {
 
         //
-        $this->validate($request, [
+        $request->validate([
 
             'title' => 'required',
             'abbreviation' => 'required',
@@ -163,12 +161,12 @@ class MappingScaleController extends Controller
             // if the mapping scale is null delete from the mapping scale program
             $msp = MappingScaleProgram::where('program_id', $request->input('program_id'))->where('map_scale_id', $map_scale_id);
 
-            //Also Deleting outcome mapping
-            //Get All PLOs for program
-            //Loop through each PLO, delete outcome where pl_outcome_id = Program and mapping scale ID = MS
+            // Also Deleting outcome mapping
+            // Get All PLOs for program
+            // Loop through each PLO, delete outcome where pl_outcome_id = Program and mapping scale ID = MS
 
-            $plos=ProgramLearningOutcome::where('program_id', $request->input('program_id'))->get();
-            foreach($plos as $plo){
+            $plos = ProgramLearningOutcome::where('program_id', $request->input('program_id'))->get();
+            foreach ($plos as $plo) {
                 OutcomeMap::where('map_scale_id', $map_scale_id)->where('pl_outcome_id', $plo->pl_outcome_id)->delete();
             }
 
@@ -190,12 +188,12 @@ class MappingScaleController extends Controller
             // if the mapping scale does not belong to a category the delete from mapping scales
             $ms = MappingScale::where('map_scale_id', $map_scale_id)->first();
 
-            //Also Deleting outcome mapping
-            //Get All PLOs for program
-            //Loop through each PLO, delete outcome where pl_outcome_id = Program and mapping scale ID = MS
+            // Also Deleting outcome mapping
+            // Get All PLOs for program
+            // Loop through each PLO, delete outcome where pl_outcome_id = Program and mapping scale ID = MS
 
-            $plos=ProgramLearningOutcome::where('program_id', $request->input('program_id'))->get();
-            foreach($plos as $plo){
+            $plos = ProgramLearningOutcome::where('program_id', $request->input('program_id'))->get();
+            foreach ($plos as $plo) {
                 OutcomeMap::where('map_scale_id', $map_scale_id)->where('pl_outcome_id', $plo->pl_outcome_id)->delete();
             }
 

@@ -34,7 +34,7 @@ class CustomLearningActivitiesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'custom_activities' => 'required',
         ]);
 

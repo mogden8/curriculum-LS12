@@ -34,7 +34,7 @@ class CustomAssessmentMethodsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'custom_methods' => 'required',
         ]);
 

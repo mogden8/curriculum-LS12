@@ -146,7 +146,7 @@ class SubcategoriesCrudController extends CrudController
             'default' =>$subid+1,
             'attributes'=>['readonly'=>'readonly',
                             ],
-        ]);*/ //this is an autoincrement field, the crud panel will create the record and it will be generated at that point.
+        ]);*/ // this is an autoincrement field, the crud panel will create the record and it will be generated at that point.
 
         $this->crud->addField([
             'label' => 'Category Name', // Table column heading
@@ -223,11 +223,11 @@ class SubcategoriesCrudController extends CrudController
     public function destroy($id)
     {
         $this->crud->hasAccessOrFail('delete');
-        //delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
+        // delete all children starting with the leafmost objects. they have to be accessed using the id's of their parent records however (either the cloID or the courseID in this case)
         $opscID = request()->route()->parameter('id');
         $r = DB::table('optional_priorities')->where('subcat_id', '=', $opscID)->delete();
 
-        //this deletes the record itself.
+        // this deletes the record itself.
         return $this->crud->delete($id);
     }
 }

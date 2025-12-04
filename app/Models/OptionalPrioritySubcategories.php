@@ -23,7 +23,7 @@ class OptionalPrioritySubcategories extends Model
         'subcat_desc',
         'cat_id',
         'subcat_postamble',
-        //'input_status',
+        // 'input_status',
     ];
 
     public function optionalPriorities(): HasMany

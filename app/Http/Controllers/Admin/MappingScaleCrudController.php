@@ -44,7 +44,7 @@ class MappingScaleCrudController extends CrudController
         CRUD::column('abbreviation');
         CRUD::column('colour');
 
-        //'wrapper'=> ['class' => 'form-group col-md-2'],
+        // 'wrapper'=> ['class' => 'form-group col-md-2'],
         /*'searchLogic' => function($query, $column, $searchTerm){
             $query ->orWhere('cat_id', 'like', '%'.$searchTerm.'%');
         }*/
@@ -108,7 +108,7 @@ class MappingScaleCrudController extends CrudController
      */
     protected function setupUpdateOperation(): void
     {
-        //$this->setupCreateOperation();
+        // $this->setupCreateOperation();
         $this->crud->addField([
             'name' => 'title',
             'label' => 'Title&nbsp;&nbsp;<span style=color:red>*</span>',

@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Providers\AppServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AccountInformationController extends Controller
+class AccountInformationController extends Controller implements HasMiddleware
 {
     /**
      * Where to redirect users when the intended url fails.
@@ -19,14 +20,11 @@ class AccountInformationController extends Controller
      */
     protected $redirectTo = AppServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(Request $request): View

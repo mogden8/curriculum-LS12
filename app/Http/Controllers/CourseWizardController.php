@@ -23,16 +23,19 @@ use App\Models\StandardScale;
 use App\Models\StandardsOutcomeMap;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class CourseWizardController extends Controller
+class CourseWizardController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
-        $this->middleware('hasAccess');
+        return [
+            ['auth', 'verified'],
+            'hasAccess',
+        ];
     }
 
     public function step1($course_id, Request $request)
@@ -45,7 +48,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -110,7 +113,7 @@ class CourseWizardController extends Controller
             return redirect()->route('courseWizard.step7', $course_id);
         }
 
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -179,7 +182,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -246,7 +249,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             return redirect()->route('courseWizard.step7', $course_id);
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;
@@ -474,7 +477,7 @@ class CourseWizardController extends Controller
         if ($request->isViewer) {
             $isViewer = true;
         }
-        //for header
+        // for header
         $user = User::where('id', Auth::id())->first();
         // returns a collection of courses associated with users
         $myCourses = $user->courses;

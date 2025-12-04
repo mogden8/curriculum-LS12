@@ -6,19 +6,17 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class StandardsOutcomeMapController extends Controller
+class StandardsOutcomeMapController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse
@@ -33,7 +31,7 @@ class StandardsOutcomeMapController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        $this->validate($request, [
+        $request->validate([
             'map' => 'required',
         ]);
 
