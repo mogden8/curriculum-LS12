@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Models\AssessmentMethod;
 use App\Models\Course;
 use App\Models\CourseOptionalPriorities;
@@ -39,11 +41,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Throwable;
 
-class ProgramController extends Controller
+class ProgramController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     /**

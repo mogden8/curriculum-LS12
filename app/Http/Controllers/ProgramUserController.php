@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Mail\NotifyNewProgramUserMail;
 use App\Mail\NotifyProgramAdminMail;
 use App\Mail\NotifyProgramOwnerMail;
@@ -16,16 +18,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-class ProgramUserController extends Controller
+class ProgramUserController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse

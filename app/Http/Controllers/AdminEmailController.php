@@ -2,26 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Mail\TemplateEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 
-class AdminEmailController extends Controller
+class AdminEmailController extends Controller implements HasMiddleware
 {
-    /*
-    SMTP SERVER WORKS LOCALLY ON VPN!
-
-    Mail docs: https://laravel.com/docs/8.x/mail
-    Laravel queries: https://laravel.com/docs/8.x/queries
-
-    */
-
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth');
-
+        return [
+            'auth',
+        ];
     }
 
     /**

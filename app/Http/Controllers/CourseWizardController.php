@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Models\AssessmentMethod;
 use App\Models\Course;
 use App\Models\CourseProgram;
@@ -27,12 +29,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class CourseWizardController extends Controller
+class CourseWizardController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
-        $this->middleware('hasAccess');
+        return [
+            ['auth', 'verified'],
+            'hasAccess',
+        ];
     }
 
     public function step1($course_id, Request $request)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Helpers\ReadOutcomesFilter;
 use App\Models\Course;
 use App\Models\LearningOutcome;
@@ -16,16 +18,13 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
-class LearningOutcomeController extends Controller
+class LearningOutcomeController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Mail\Invitation;
 use App\Models\Invite;
 use App\Models\User;
@@ -12,11 +14,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class InviteController extends Controller
+class InviteController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function invite()

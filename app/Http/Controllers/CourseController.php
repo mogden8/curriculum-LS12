@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Mail\NotifyInstructorForMappingMail;
 use App\Mail\NotifyNewCourseInstructorMail;
 use App\Mail\NotifyNewUserAndInstructorMail;
@@ -42,12 +44,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Throwable;
 
-class CourseController extends Controller
+class CourseController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
-        $this->middleware('course')->only(['show', 'pdf', 'edit', 'submit', 'outcomeDetails']);
+        return [
+            ['auth', 'verified'],
+            new Middleware('course', only: ['show', 'pdf', 'edit', 'submit', 'outcomeDetails']),
+        ];
     }
 
     /**

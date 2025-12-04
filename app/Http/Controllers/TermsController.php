@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\View\View;
 
-class TermsController extends Controller
+class TermsController extends Controller implements HasMiddleware
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        return [
+            new Middleware('auth', except: ['index']),
+        ];
     }
 
     /**

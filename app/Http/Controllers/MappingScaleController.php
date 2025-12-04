@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Models\CourseProgram;
 use App\Models\MappingScale;
 use App\Models\MappingScaleProgram;
@@ -13,16 +15,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MappingScaleController extends Controller
+class MappingScaleController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse

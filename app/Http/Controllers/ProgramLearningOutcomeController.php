@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 // composer generates this autoload.php file so you can start using the classes in dependencies without any extra work
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Helpers\ReadOutcomesFilter;
 use App\Models\CourseProgram;
 use App\Models\PLOCategory;
@@ -20,16 +22,13 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Throwable;
 
-class ProgramLearningOutcomeController extends Controller
+class ProgramLearningOutcomeController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
+        return [
+            ['auth', 'verified'],
+        ];
     }
 
     public function index(): RedirectResponse

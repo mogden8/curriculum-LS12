@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Models\Course;
 use App\Models\CourseSchedule;
 use App\Models\Department;
@@ -59,13 +61,14 @@ define('INPUT_TIPS', [
     'courseStructureOK' => 'A description of the course structure such as, for example, lecture, lab, tutorial, flipped classroom, mixed-mode, contact hours per week; day, time, and location of classes, or other activities that may not be available on the Student Service Centre or on Workday.',
 ]);
 
-class SyllabusController extends Controller
+class SyllabusController extends Controller implements HasMiddleware
 {
-    //
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'verified']);
-        $this->middleware('hasAccess');
+        return [
+            ['auth', 'verified'],
+            'hasAccess',
+        ];
     }
 
     public function index(Request $request)

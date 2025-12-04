@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -9,12 +11,13 @@ use Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class UsersController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth');
-
+        return [
+            'auth',
+        ];
     }
 
     /**
