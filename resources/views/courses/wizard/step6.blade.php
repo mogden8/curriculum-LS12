@@ -179,7 +179,7 @@
                                                     </h2>
                                                     <div class="accordion-body">
                                                         @foreach ($singleOptionalPriorityCategory->optionalPrioritySubcategories as $optionalPrioritySubcategory)
-                                                            @if ($optionalPrioritySubcategory->subcat_id == 2 )
+                                                            @if (false) <!-- False previously was $optionalPrioritySubcategory->subcat_id == 2 but are removing applicable resources-->
                                                                 <div class="row">
                                                                     <div class="col-10"></div>
                                                                     <div class="col">
@@ -249,7 +249,7 @@
                                                                         </div>
                                                                     @endforeach
                                                                 </div>
-                                                            @elseif ($optionalPrioritySubcategory->subcat_id == 2 )
+                                                            @elseif (false ) <!-- False previously was $optionalPrioritySubcategory->subcat_id == 2 but are removing applicable resources-->
                                                                 <div class="row">
                                                                     <div class="col-10"></div>
                                                                     <div class="col">
@@ -391,7 +391,7 @@
                                                         <div id="collapseMinistryPriorities{{$optionalPriorityCategory->cat_id}}" class="accordion-collapse collapse" aria-labelledby="ministryPrioritiesHeader" data-bs-parent="#PrioritiesAccordions">
                                                             <div class="accordion-body">
                                                                 @foreach ($optionalPriorityCategory->optionalPrioritySubcategories as $optionalPrioritySubcategory)
-                                                                    @if ($optionalPrioritySubcategory->subcat_id == 3 )
+                                                                    @if (false) <!-- False previously was $optionalPrioritySubcategory->subcat_id == 3 but are removing applicable resources-->
                                                                         <div class="row">
                                                                             <div class="col-10"></div>
                                                                             <div class="col">
@@ -461,7 +461,7 @@
                                                                                 </div>
                                                                             @endforeach
                                                                         </div>
-                                                                    @elseif ($optionalPrioritySubcategory->subcat_id == 3 )
+                                                                    @elseif (false) <!-- False previously was $optionalPrioritySubcategory->subcat_id == 3 but are removing applicable resources-->
                                                                         <div class="row">
                                                                             <div class="col-10"></div>
                                                                             <div class="col">
