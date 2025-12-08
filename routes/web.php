@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +43,17 @@ use Illuminate\Support\Facades\URL;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/maintenance/optimize-clear', function () {
+    Artisan::call('optimize:clear');
 
+    return nl2br("Ran: php artisan optimize:clear\n\n" . Artisan::output());
+});
+
+Route::get('/maintenance/view-clear', function () {
+    Artisan::call('view:clear');
+
+    return nl2br("Ran: php artisan view:clear\n\n" . Artisan::output());
+});
 
 Route::get('/', function () {
     return view('pages.landing');
