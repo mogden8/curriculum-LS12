@@ -35,6 +35,12 @@
 </div>
 
 
+<div class="alert alert-warning"" role="alert" style="text-align:justify">
+        <div>
+            We are looking into issues with the Word format download of the Syllabus Generator. In the meantime please use the PDF format to download your Syllabi instead. If you have any questions please email <a href="mailto:ctl.helpdesk@ubc.ca">ctl.helpdesk@ubc.ca</a>. We apologize for this inconvenience.
+        </div>
+</div>
+
 <style>
     .inputFieldDescription {
         font-size: 13px;
