@@ -35,9 +35,10 @@
 </div>
 
 
-<div class="alert alert-warning"" role="alert" style="text-align:justify">
+<div class="alert alert-warning">
+<button type="button" class="close" data-dismiss="alert">×</button>
         <div>
-            We are looking into issues with the Word format download of the Syllabus Generator. In the meantime please use the PDF format to download your Syllabi instead. If you have any questions please email <a href="mailto:ctl.helpdesk@ubc.ca">ctl.helpdesk@ubc.ca</a>. We apologize for this inconvenience.
+            We are looking into issues with the Word format download of the Syllabus Generator on certain browsers. In the meantime please try using Google Chrome or downloading the PDF format of your Syllabus instead. If you have any questions please email <a href="mailto:ctl.helpdesk@ubc.ca">ctl.helpdesk@ubc.ca</a>. We apologize for this inconvenience.
         </div>
 </div>
 
