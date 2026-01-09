@@ -29,6 +29,7 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
+use App\Word\SafeTemplateProcessor;
 use Dompdf\Options as DomPdfOptions;
 
 define('INPUT_TIPS', [
@@ -984,7 +985,9 @@ class SyllabusController extends Controller
         switch ($syllabus->campus) {
             case 'O':
                 // create a new template for this syllabus
-                $templateProcessor = new TemplateProcessor('word-template/UBC-O_default.docx');
+                //$templateProcessor = new TemplateProcessor('word-template/UBC-O_default.docx');
+                //Changed to creation of TemplateProcessor to use SafeTemplateProcessor to fix XML Parsing issues
+                $templateProcessor = new SafeTemplateProcessor('word-template/UBC-O_default.docx');
                 // get data specific to the okanagan campus
                 $okanaganSyllabus = OkanaganSyllabus::where('syllabus_id', $syllabus->id)->first();
 
@@ -1384,7 +1387,9 @@ class SyllabusController extends Controller
                 // get data specific to the okanagan campus
                 $vancouverSyllabus = VancouverSyllabus::where('syllabus_id', $syllabus->id)->first();
                 // generate word syllabus for Vancouver campus course
-                $templateProcessor = new TemplateProcessor('word-template/UBC-V_default.docx');
+                //$templateProcessor = new TemplateProcessor('word-template/UBC-V_default.docx');
+                //Changed to creation of TemplateProcessor to use SafeTemplateProcessor to fix XML Parsing issues
+                $templateProcessor = new SafeTemplateProcessor('word-template/UBC-V_default.docx');
                 // add data to the vancouver syllabus template
                 $courseCredit = $vancouverSyllabus->course_credit;
                 // add required form fields specific to Vancouver campus to template
@@ -2197,6 +2202,18 @@ class SyllabusController extends Controller
 
             // get path to word file
             $wordFilePath = config('app.env') == 'local' ? public_path($fileName . $wordFileExt) : base_path('html' . DIRECTORY_SEPARATOR . $fileName . $wordFileExt);
+            
+            //sanitize the XML 
+            // 🔧 Sanitize the XML inside the docx before loading it 
+            $zip = new \ZipArchive; if ($zip->open($wordFilePath) === true) { 
+                // read the main document XML 
+                $xml = $zip->getFromName('word/document.xml'); 
+                // sanitize it 
+                $xml = $this->sanitizeXml($xml); 
+                // write it back into the docx 
+                $zip->addFromString('word/document.xml', $xml); 
+                $zip->close(); }
+            
             // load word file
             $wordFileContent = IOFactory::load($wordFilePath);
             $pdfWriter = IOFactory::createWriter($wordFileContent, 'PDF');
@@ -2210,6 +2227,7 @@ class SyllabusController extends Controller
 
         return response()->download($fileName . $wordFileExt)->deleteFileAfterSend(true);
     }
+    private function sanitizeXml($xml) { return preg_replace('/&(?!amp;|lt;|gt;|quot;|apos;)/', '&amp;', $xml); }
 
     private function addAlignmentToWordDoc($syllabusId, $docTemplate, $styles)
     {
