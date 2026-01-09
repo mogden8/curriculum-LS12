@@ -29,7 +29,6 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
-use App\Word\SafeTemplateProcessor;
 use Dompdf\Options as DomPdfOptions;
 
 define('INPUT_TIPS', [
@@ -985,9 +984,7 @@ class SyllabusController extends Controller
         switch ($syllabus->campus) {
             case 'O':
                 // create a new template for this syllabus
-                //$templateProcessor = new TemplateProcessor('word-template/UBC-O_default.docx');
-                //Changed to creation of TemplateProcessor to use SafeTemplateProcessor to fix XML Parsing issues
-                $templateProcessor = new SafeTemplateProcessor('word-template/UBC-O_default.docx');
+                $templateProcessor = new TemplateProcessor('word-template/UBC-O_default.docx');
                 // get data specific to the okanagan campus
                 $okanaganSyllabus = OkanaganSyllabus::where('syllabus_id', $syllabus->id)->first();
 
@@ -1387,9 +1384,7 @@ class SyllabusController extends Controller
                 // get data specific to the okanagan campus
                 $vancouverSyllabus = VancouverSyllabus::where('syllabus_id', $syllabus->id)->first();
                 // generate word syllabus for Vancouver campus course
-                //$templateProcessor = new TemplateProcessor('word-template/UBC-V_default.docx');
-                //Changed to creation of TemplateProcessor to use SafeTemplateProcessor to fix XML Parsing issues
-                $templateProcessor = new SafeTemplateProcessor('word-template/UBC-V_default.docx');
+                $templateProcessor = new TemplateProcessor('word-template/UBC-V_default.docx');
                 // add data to the vancouver syllabus template
                 $courseCredit = $vancouverSyllabus->course_credit;
                 // add required form fields specific to Vancouver campus to template
