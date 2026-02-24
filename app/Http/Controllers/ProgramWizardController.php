@@ -37,7 +37,134 @@ class ProgramWizardController extends Controller
         $this->middleware(['auth', 'verified']);
         $this->middleware('hasAccess');
     }
+    public function step1($program_id, Request $request)
+{
+    $isEditor = (bool) $request->isEditor;
+    if ($request->isViewer) {
+        return redirect()->route('programWizard.step4', $program_id);
+    }
 
+    // Current user (lean)
+    $user = User::query()->select(['id','name','email'])->findOrFail(Auth::id());
+
+    // Reference lists (trimmed; cache if desired)
+
+    $campuses = Campus::query()
+    ->select(['campus_id', 'campus'])
+    ->orderBy('campus')
+    ->get();
+
+    $faculties = Faculty::query()
+    ->select(['faculty_id', 'faculty', 'campus_id'])
+    ->orderBy('faculty')
+    ->get();
+
+    $departments = Department::query()
+    ->select(['department_id', 'department', 'faculty_id'])
+    ->orderBy('department')
+    ->get();
+
+    $levels = ['Undergraduate', 'Graduate', 'Other'];
+
+    // Program basics
+    $program = Program::query()
+        ->select(['program_id','program','level','faculty','department','campus'])
+        ->findOrFail($program_id);
+
+    // Collaborators ONLY for this program (NOT all the user's programs)
+    $programCollaborators = $program->users()->select(['users.id','users.name','users.email'])->get();
+
+    // PLO data (trim columns)
+    $plos = ProgramLearningOutcome::query()
+        ->select(['pl_outcome_id','plo_category_id','position','plo_shortphrase','pl_outcome'])
+        ->where('program_id', $program_id)
+        ->orderBy('plo_category_id','asc')
+        ->orderBy('position','asc')
+        ->get();
+
+    $ploCategories = PLOCategory::query()
+        ->select(['plo_category_id','plo_category'])
+        ->where('program_id', $program_id)
+        ->get();
+
+    $ploProgramCategories = ProgramLearningOutcome::query()
+        ->select(['pl_outcome_id','plo_category_id','position','plo_shortphrase','pl_outcome'])
+        ->where('program_id', $program_id)
+        ->whereNotNull('plo_category_id')
+        ->orderBy('plo_category_id','asc')
+        ->orderBy('position','asc')
+        ->get();
+
+    $unCategorizedPLOS = ProgramLearningOutcome::query()
+        ->select(['pl_outcome_id','plo_shortphrase','pl_outcome'])
+        ->where('program_id', $program_id)
+        ->whereNull('plo_category_id')
+        ->orderBy('position','asc')
+        ->get();
+
+    $hasUncategorized = $unCategorizedPLOS->isNotEmpty();
+
+    // Progress counts
+    $ploCount    = $plos->count();
+    $msCount     = MappingScale::join('mapping_scale_programs','mapping_scales.map_scale_id','=','mapping_scale_programs.map_scale_id')
+                      ->where('mapping_scale_programs.program_id', $program_id)
+                      ->count();
+    $courseCount = CourseProgram::where('program_id', $program_id)->count();
+
+    // Derived helpers for the Blade
+    $plosPerCategoryCount = $plos
+        ->whereNotNull('plo_category_id')
+        ->groupBy('plo_category_id')
+        ->map->count()
+        ->toArray();
+
+    // Default short forms (your original logic)
+    $defaultShortForms      = [];
+    $defaultShortFormsIndex = [];
+    $ploDefaultCount        = 0;
+
+    foreach ($ploCategories as $category) {
+        $categoryPLOs = $ploProgramCategories->where('plo_category_id', $category->plo_category_id);
+        foreach ($categoryPLOs as $plo) {
+            $ploDefaultCount++;
+            $defaultShortForms[$plo->pl_outcome_id]      = 'PLO #'.$ploDefaultCount;
+            $defaultShortFormsIndex[$plo->pl_outcome_id] = $ploDefaultCount;
+        }
+    }
+    foreach ($unCategorizedPLOS as $plo) {
+        $ploDefaultCount++;
+        $defaultShortForms[$plo->pl_outcome_id]      = 'PLO #'.$ploDefaultCount;
+        $defaultShortFormsIndex[$plo->pl_outcome_id] = $ploDefaultCount;
+    }
+
+    return view('programs.wizard.step1', [
+        'plos'                   => $plos,
+        'program'                => $program,
+        'ploCategories'          => $ploCategories,
+        'faculties'              => $faculties,
+        'departments'            => $departments,
+        'campuses'               => $campuses,
+        'levels'                 => $levels,
+        'user'                   => $user,
+        'programCollaborators'   => $programCollaborators, // << new, lean
+        'ploCount'               => $ploCount,
+        'msCount'                => $msCount,
+        'courseCount'            => $courseCount,
+        'ploProgramCategories'   => $ploProgramCategories,
+        'hasUncategorized'       => $hasUncategorized,
+        'unCategorizedPLOS'      => $unCategorizedPLOS,
+        'plosPerCategoryCount'   => $plosPerCategoryCount, // << new helper
+        'isEditor'               => $isEditor,
+        'isViewer'               => false,
+        'defaultShortForms'      => $defaultShortForms,
+        'defaultShortFormsIndex' => $defaultShortFormsIndex,
+    ]);
+}
+//Old step1 Method, improved by:
+//Removed the “my programs → users for each program” fan‑out ($myPrograms + $programUsers) and replaced it with only this program’s collaborators ($programCollaborators).
+//Trimmed all queries to only the columns used on the page
+//Added $plosPerCategoryCount so the Blade no longer needs to call $plo->plos->count() which would trigger N+1 lazy loads
+/*
     public function step1($program_id, Request $request)
     {
         $isEditor = false;
@@ -136,7 +263,7 @@ class ProgramWizardController extends Controller
             ->with('isViewer', $isViewer)
             ->with('defaultShortForms', $defaultShortForms)
             ->with('defaultShortFormsIndex', $defaultShortFormsIndex);
-    }
+    } */
 
     public function step2($program_id, Request $request)
     {

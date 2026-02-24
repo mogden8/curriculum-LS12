@@ -997,7 +997,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($CDArr as $index => $courseDesc) {
                             $templateProcessor->cloneBlock('NocourseDescription');
-                            $templateProcessor->setValue('courseDescriptionOK' . $i, htmlspecialchars($courseDesc, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseDescriptionOK' . $i, htmlspecialchars($courseDesc, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue( 'courseDescriptionOK' . $i, $this->wordText($courseDesc));
+
                             $i++;
                         }
 
@@ -1006,7 +1008,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NocourseDescription');
-                        $templateProcessor->setValue('courseDescriptionOK0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_description));
+                        //$templateProcessor->setValue('courseDescriptionOK0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_description));
+                        $templateProcessor->setValue('courseDescriptionOK0',$this->wordText($okanaganSyllabus->course_description));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseDescriptionOK' . $i, '');
@@ -1024,7 +1027,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($CFArr as $index => $courseForm) {
                             $templateProcessor->cloneBlock('NocourseFormat');
-                            $templateProcessor->setValue('courseFormat' . $i, $courseForm . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseFormat' . $i, $courseForm . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseFormat' . $i, $this->wordText($courseForm));
                             $i++;
                         }
 
@@ -1033,7 +1037,9 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NocourseFormat');
-                        $templateProcessor->setValue('courseFormat0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_format));
+                        //$templateProcessor->setValue('courseFormat0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_format));
+                        $templateProcessor->setValue('courseFormat0', $this->wordText($okanaganSyllabus->course_format));
+
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseFormat' . $i, '');
@@ -1051,7 +1057,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($COArr as $index => $courseOver) {
                             $templateProcessor->cloneBlock('NocourseOverview');
-                            $templateProcessor->setValue('courseOverview' . $i, htmlspecialchars($courseOver, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseOverview' . $i, htmlspecialchars($courseOver, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseOverview' . $i, $this->wordText($courseOver));
+
                             $i++;
                         }
 
@@ -1060,7 +1068,9 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NocourseOverview');
-                        $templateProcessor->setValue('courseOverview0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_overview));
+                        //$templateProcessor->setValue('courseOverview0', str_replace("\n", '</w:t><w:br/><w:t>', $okanaganSyllabus->course_overview));
+                        $templateProcessor->setValue('courseOverview0', $this->wordText($okanaganSyllabus->course_overview));
+
                         $i++;
                         for ($i; $i <= 30; $i++) {
                             $templateProcessor->setValue('courseOverview' . $i, '');
@@ -1100,7 +1110,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LearnActArr as $index => $learnAct) {
                             $templateProcessor->cloneBlock('NoLearningActivities');
-                            $templateProcessor->setValue('learningActivities' . $i, htmlspecialchars($learnAct, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningActivities' . $i, htmlspecialchars($learnAct, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningActivities' . $i, $this->wordText($learnAct));
+
                             $i++;
                         }
 
@@ -1109,7 +1121,9 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoLearningActivities');
-                        $templateProcessor->setValue('learningActivities0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_activities));
+                        //$templateProcessor->setValue('learningActivities0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_activities));
+                        $templateProcessor->setValue('learningActivities0', $this->wordText($syllabus->learning_activities));
+
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningActivities' . $i, '');
@@ -1171,7 +1185,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($otherCourseStaffArr as $index => $otherCourseStaff) {
                             $templateProcessor->cloneBlock('NoOtherInstructionalStaff');
-                            $templateProcessor->setValue('otherInstructionalStaff' . $i, $otherCourseStaff . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('otherInstructionalStaff' . $i, $otherCourseStaff . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('otherInstructionalStaff' . $i, $this->wordText($otherCourseStaff));
+
                             $i++;
                         }
 
@@ -1180,7 +1196,9 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoOtherInstructionalStaff');
-                        $templateProcessor->setValue('otherInstructionalStaff0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->other_instructional_staff));
+                        //$templateProcessor->setValue('otherInstructionalStaff0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->other_instructional_staff));
+                        $templateProcessor->setValue('otherInstructionalStaff0', $this->wordText($syllabus->other_instructional_staff));
+
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('otherInstructionalStaff' . $i, '');
@@ -1198,12 +1216,25 @@ class SyllabusController extends Controller
                 }
 
                 // tell template processor to include class hours if user completed the field(s)
+                /*
                 if ($classStartTime = $syllabus->class_start_time && $classEndTime = $syllabus->class_end_time) {
                     $templateProcessor->cloneBlock('NoClassHours');
                     $templateProcessor->setValues(['classStartTime' => $syllabus->class_start_time, 'classEndTime' => $syllabus->class_end_time]);
                 } else {
                     $templateProcessor->cloneBlock('NoClassHours', 0);
+                } */
+
+                
+                if (!empty($syllabus->class_start_time) && !empty($syllabus->class_end_time)) {
+                    $templateProcessor->cloneBlock('NoClassHours');
+                    $templateProcessor->setValues([
+                        'classStartTime' => $syllabus->class_start_time,
+                        'classEndTime'   => $syllabus->class_end_time,
+                    ]);
+                } else {
+                    $templateProcessor->cloneBlock('NoClassHours', 0);
                 }
+
                 // tell template processor to include course schedule if user completed the field(s)
                 if ($syllabus->class_meeting_days) {
                     $templateProcessor->cloneBlock('NoCourseDays');
@@ -1268,7 +1299,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LOutArr as $index => $courseLOut) {
                             $templateProcessor->cloneBlock('NolearningOutcomes');
-                            $templateProcessor->setValue('learningOutcomes' . $i, $courseLOut . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningOutcomes' . $i, $courseLOut . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningOutcomes' . $i, $this->wordText($courseLOut));
+
                             $i++;
                         }
 
@@ -1277,7 +1310,9 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NolearningOutcomes');
-                        $templateProcessor->setValue('learningOutcomes0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_outcomes));
+                        //$templateProcessor->setValue('learningOutcomes0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_outcomes));
+                        $templateProcessor->setValue('learningOutcomes0', $this->wordText($syllabus->learning_outcomes));
+
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningOutcomes' . $i, '');
@@ -1293,7 +1328,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LAssArr as $index => $courseLAss) {
                             $templateProcessor->cloneBlock('NolearningAssessments');
-                            $templateProcessor->setValue('learningAssessments' . $i, $courseLAss . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningAssessments' . $i, $courseLAss . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningAssessments' . $i, $this->wordText($courseLAss));
                             $i++;
                         }
 
@@ -1302,7 +1338,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NolearningAssessments');
-                        $templateProcessor->setValue('learningAssessments0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_assessments));
+                        //$templateProcessor->setValue('learningAssessments0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_assessments));
+                        $templateProcessor->setValue('learningAssessments0', $this->wordText($syllabus->learning_assessments));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningAssessments' . $i, '');
@@ -1320,7 +1357,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LRArr as $index => $courseLR) {
                             $templateProcessor->cloneBlock('NocourseLearningResources');
-                            $templateProcessor->setValue('courseLearningResources' . $i, $courseLR . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseLearningResources' . $i, $courseLR . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseLearningResources' . $i, $this->wordText($courseLR));
                             $i++;
                         }
 
@@ -1329,7 +1367,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NocourseLearningResources');
-                        $templateProcessor->setValue('courseLearningResources0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_resources));
+                        //$templateProcessor->setValue('courseLearningResources0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->learning_resources));
+                        $templateProcessor->setValue('courseLearningResources0', $this->wordText($syllabus->learning_resources));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseLearningResources' . $i, '');
@@ -1347,7 +1386,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LMArr as $index => $courseLM) {
                             $templateProcessor->cloneBlock('NoLearningMaterials');
-                            $templateProcessor->setValue('learningMaterials' . $i, $courseLM . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningMaterials' . $i, $courseLM . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningMaterials' . $i, $this->wordText($courseLM));
                             $i++;
                         }
 
@@ -1356,7 +1396,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoLearningMaterials');
-                        $templateProcessor->setValue('learningMaterials0', str_replace("\n", '</w:t><w:br/><w:t>', $learningMaterials));
+                        //$templateProcessor->setValue('learningMaterials0', str_replace("\n", '</w:t><w:br/><w:t>', $learningMaterials));
+                        $templateProcessor->setValue('learningMaterials0', $this->wordText($learningMaterials));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningMaterials' . $i, '');
@@ -1401,7 +1442,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($CDVArr as $index => $courseCDV) {
                             $templateProcessor->cloneBlock('NoCourseDescription');
-                            $templateProcessor->setValue('courseDescription' . $i, $courseCDV . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseDescription' . $i, $courseCDV . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseDescription' . $i, $this->wordText($courseCDV));
                             $i++;
                         }
 
@@ -1410,7 +1452,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoCourseDescription');
-                        $templateProcessor->setValue('courseDescription0', str_replace("\n", '</w:t><w:br/><w:t>', $courseDescription));
+                        //$templateProcessor->setValue('courseDescription0', str_replace("\n", '</w:t><w:br/><w:t>', $courseDescription));
+                        $templateProcessor->setValue('courseDescription0', $this->wordText($courseDescription));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseDescription' . $i, '');
@@ -1491,7 +1534,9 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($CIBArr as $index => $courseCIB) {
                             $templateProcessor->cloneBlock('NoInstructorBio');
-                            $templateProcessor->setValue('instructorBio' . $i, $courseCIB . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('instructorBio' . $i, $courseCIB . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('instructorBio' . $i, $this->wordText($courseCIB));
+
                             $i++;
                         }
 
@@ -1500,7 +1545,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoInstructorBio');
-                        $templateProcessor->setValue('instructorBio0', str_replace("\n", '</w:t><w:br/><w:t>', $courseInstructorBio));
+                        //$templateProcessor->setValue('instructorBio0', str_replace("\n", '</w:t><w:br/><w:t>', $courseInstructorBio));
+                        $templateProcessor->setValue('instructorBio0', $this->wordText($courseInstructorBio));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('instructorBio' . $i, '');
@@ -1519,7 +1565,8 @@ class SyllabusController extends Controller
                         foreach ($CStructArr as $index => $courseStruct) {
                             $templateProcessor->cloneBlock('NoCourseStructureDesc', 0);
                             $templateProcessor->cloneBlock('NoCourseStructure');
-                            $templateProcessor->setValue('courseStructure' . $i, $courseStruct . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseStructure' . $i, $courseStruct . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseStructure' . $i, $this->wordText($courseStruct));
                             $i++;
                         }
 
@@ -1529,7 +1576,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NoCourseStructureDesc', 0);
                         $templateProcessor->cloneBlock('NoCourseStructure');
-                        $templateProcessor->setValue('courseStructure0', str_replace("\n", '</w:t><w:br/><w:t>', $courseStructure));
+                        //$templateProcessor->setValue('courseStructure0', str_replace("\n", '</w:t><w:br/><w:t>', $courseStructure));
+                        $templateProcessor->setValue('courseStructure0', $this->wordText($courseStructure));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseStructure' . $i, '');
@@ -1541,7 +1589,8 @@ class SyllabusController extends Controller
                 }
 
                 if ($courseSchedule = $vancouverSyllabus->course_schedule) {
-                    $templateProcessor->setValue('courseSchedule', $courseSchedule);
+                    //$templateProcessor->setValue('courseSchedule', $courseSchedule);
+                    $templateProcessor->setValue('courseSchedule', $this->wordText($courseSchedule));
                 } else {
                     $templateProcessor->setValue('courseSchedule', '');
                 }
@@ -1553,7 +1602,8 @@ class SyllabusController extends Controller
                         foreach ($LearnActArr as $index => $learnAct) {
                             $templateProcessor->cloneBlock('NoLearningActivities');
                             $templateProcessor->cloneBlock('NoLearningActivitiesDesc', 0);
-                            $templateProcessor->setValue('learningActivities' . $i, htmlspecialchars($learnAct, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningActivities' . $i, htmlspecialchars($learnAct, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningActivities' . $i, $this->wordText($learnAct));
                             $i++;
                         }
 
@@ -1563,7 +1613,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NoLearningActivities');
                         $templateProcessor->cloneBlock('NoLearningActivitiesDesc', 0);
-                        $templateProcessor->setValue('learningActivities0', str_replace("\n", '</w:t><w:br/><w:t>', $learningActivities));
+                        //$templateProcessor->setValue('learningActivities0', str_replace("\n", '</w:t><w:br/><w:t>', $learningActivities));
+                        $templateProcessor->setValue('learningActivities0', $this->wordText($learningActivities));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningActivities' . $i, '');
@@ -1583,7 +1634,8 @@ class SyllabusController extends Controller
                         foreach ($otherCourseStaffArr as $index => $otherCourseStaff) {
                             $templateProcessor->cloneBlock('NoOtherInstructionalStaffDesc', 0);
                             $templateProcessor->cloneBlock('NoOtherInstructionalStaff');
-                            $templateProcessor->setValue('otherInstructionalStaff' . $i, $otherCourseStaff . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('otherInstructionalStaff' . $i, $otherCourseStaff . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('otherInstructionalStaff' . $i, $this->wordText($otherCourseStaff));
                             $i++;
                         }
 
@@ -1593,7 +1645,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NoOtherInstructionalStaffDesc', 0);
                         $templateProcessor->cloneBlock('NoOtherInstructionalStaff');
-                        $templateProcessor->setValue('otherInstructionalStaff0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->other_instructional_staff));
+                        //$templateProcessor->setValue('otherInstructionalStaff0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->other_instructional_staff));
+                        $templateProcessor->setValue('otherInstructionalStaff0', $this->wordText($syllabus->other_instructional_staff));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('otherInstructionalStaff' . $i, '');
@@ -1614,12 +1667,25 @@ class SyllabusController extends Controller
                 }
 
                 // tell template processor to include class hours if user completed the field(s)
+                /*
                 if ($classStartTime = $syllabus->class_start_time && $classEndTime = $syllabus->class_end_time) {
                     $templateProcessor->cloneBlock('NoClassHours');
                     $templateProcessor->setValues(['classStartTime' => $syllabus->class_start_time, 'classEndTime' => $syllabus->class_end_time]);
                 } else {
                     $templateProcessor->cloneBlock('NoClassHours', 0);
+                } */
+
+                
+                if (!empty($syllabus->class_start_time) && !empty($syllabus->class_end_time)) {
+                    $templateProcessor->cloneBlock('NoClassHours');
+                    $templateProcessor->setValues([
+                        'classStartTime' => $syllabus->class_start_time,
+                        'classEndTime'   => $syllabus->class_end_time,
+                    ]);
+                } else {
+                    $templateProcessor->cloneBlock('NoClassHours', 0);
                 }
+
 
                 // tell template processor to include course schedule if user completed the field(s)
                 if ($schedule = $syllabus->class_meeting_days) {
@@ -1666,7 +1732,8 @@ class SyllabusController extends Controller
                         foreach ($LOutArr as $index => $courseLOut) {
                             $templateProcessor->cloneBlock('NolearningOutcomesDesc', 0);
                             $templateProcessor->cloneBlock('NolearningOutcomes');
-                            $templateProcessor->setValue('learningOutcomes' . $i, $courseLOut . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningOutcomes' . $i, $courseLOut . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningOutcomes' . $i, $this->wordText($courseLOut));
                             $i++;
                         }
 
@@ -1676,7 +1743,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NolearningOutcomesDesc', 0);
                         $templateProcessor->cloneBlock('NolearningOutcomes');
-                        $templateProcessor->setValue('learningOutcomes0', str_replace("\n", '</w:t><w:br/><w:t>', $learningOutcome));
+                        //$templateProcessor->setValue('learningOutcomes0', str_replace("\n", '</w:t><w:br/><w:t>', $learningOutcome));
+                        $templateProcessor->setValue('learningOutcomes0', $this->wordText($learningOutcome));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningOutcomes' . $i, '');
@@ -1694,7 +1762,8 @@ class SyllabusController extends Controller
                         foreach ($LAssArr as $index => $courseLAss) {
                             $templateProcessor->cloneBlock('NolearningAssessmentsDesc', 0);
                             $templateProcessor->cloneBlock('NolearningAssessments');
-                            $templateProcessor->setValue('learningAssessments' . $i, $courseLAss . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningAssessments' . $i, $courseLAss . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningAssessments' . $i, $this->wordText($courseLAss));
                             $i++;
                         }
 
@@ -1704,7 +1773,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NolearningAssessmentsDesc', 0);
                         $templateProcessor->cloneBlock('NolearningAssessments');
-                        $templateProcessor->setValue('learningAssessments0', str_replace("\n", '</w:t><w:br/><w:t>', $learningAssessments));
+                        //$templateProcessor->setValue('learningAssessments0', str_replace("\n", '</w:t><w:br/><w:t>', $learningAssessments));
+                        $templateProcessor->setValue('learningAssessments0', $this->wordText($learningAssessments));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningAssessments' . $i, '');
@@ -1722,7 +1792,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LRVArr as $index => $courseLRV) {
                             $templateProcessor->cloneBlock('NoCourseLearningResources');
-                            $templateProcessor->setValue('courseLearningResources' . $i, $courseLRV . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('courseLearningResources' . $i, $courseLRV . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('courseLearningResources' . $i, $this->wordText($courseLRV));
                             $i++;
                         }
 
@@ -1731,7 +1802,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoCourseLearningResources');
-                        $templateProcessor->setValue('courseLearningResources0', str_replace("\n", '</w:t><w:br/><w:t>', $learningResources));
+                        //$templateProcessor->setValue('courseLearningResources0', str_replace("\n", '</w:t><w:br/><w:t>', $learningResources));
+                        $templateProcessor->setValue('courseLearningResources0', $this->wordText($learningResources));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('courseLearningResources' . $i, '');
@@ -1750,7 +1822,8 @@ class SyllabusController extends Controller
                         foreach ($LMVArr as $index => $courseLMV) {
                             $templateProcessor->cloneBlock('NoLearningMaterials');
                             $templateProcessor->cloneBlock('NoLearningMaterialsDesc', 0);
-                            $templateProcessor->setValue('learningMaterials' . $i, $courseLMV . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningMaterials' . $i, $courseLMV . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningMaterials' . $i, $this->wordText($courseLMV));
                             $i++;
                         }
 
@@ -1760,7 +1833,8 @@ class SyllabusController extends Controller
                     } else {
                         $templateProcessor->cloneBlock('NoLearningMaterials');
                         $templateProcessor->cloneBlock('NoLearningMaterialsDesc', 0);
-                        $templateProcessor->setValue('learningMaterials0', str_replace("\n", '</w:t><w:br/><w:t>', $learningMaterials));
+                        //$templateProcessor->setValue('learningMaterials0', str_replace("\n", '</w:t><w:br/><w:t>', $learningMaterials));
+                        $templateProcessor->setValue('learningMaterials0', $this->wordText($learningMaterials));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningMaterials' . $i, '');
@@ -1781,7 +1855,8 @@ class SyllabusController extends Controller
                     if ($ext == 'pdf') {
                         foreach ($LAVArr as $index => $courseLAV) {
                             $templateProcessor->cloneBlock('NoLearningAnalytics');
-                            $templateProcessor->setValue('learningAnalytics' . $i, $courseLAV . '</w:t><w:br/><w:t>');
+                            //$templateProcessor->setValue('learningAnalytics' . $i, $courseLAV . '</w:t><w:br/><w:t>');
+                            $templateProcessor->setValue('learningAnalytics' . $i, $this->wordText($courseLAV));
                             $i++;
                         }
 
@@ -1790,7 +1865,8 @@ class SyllabusController extends Controller
                         }
                     } else {
                         $templateProcessor->cloneBlock('NoLearningAnalytics');
-                        $templateProcessor->setValue('learningAnalytics0', str_replace("\n", '</w:t><w:br/><w:t>', $learningAnalytics));
+                        //$templateProcessor->setValue('learningAnalytics0', str_replace("\n", '</w:t><w:br/><w:t>', $learningAnalytics));
+                        $templateProcessor->setValue('learningAnalytics0', $this->wordText($learningAnalytics));
                         $i++;
                         for ($i; $i <= 20; $i++) {
                             $templateProcessor->setValue('learningAnalytics' . $i, '');
@@ -1823,7 +1899,8 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($CRArr as $index => $courseCR) {
                     $templateProcessor->cloneBlock('NoCustomResource');
-                    $templateProcessor->setValue('custom_resource' . $i, $courseCR . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('custom_resource' . $i, $courseCR . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('custom_resource' . $i, $this->wordText($courseCR));
                     $i++;
                 }
 
@@ -1832,7 +1909,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NoCustomResource');
-                $templateProcessor->setValue('custom_resource0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->custom_resource));
+                //$templateProcessor->setValue('custom_resource0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->custom_resource));
+                $templateProcessor->setValue('custom_resource0', $this->wordText($syllabus->custom_resource));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('custom_resource' . $i, '');
@@ -1963,7 +2041,8 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($LPArr as $index => $courseLP) {
                     $templateProcessor->cloneBlock('NolatePolicy');
-                    $templateProcessor->setValue('latePolicy' . $i, $courseLP . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('latePolicy' . $i, $courseLP . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('latePolicy' . $i, $this->wordText($courseLP));
                     $i++;
                 }
 
@@ -1972,7 +2051,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NolatePolicy');
-                $templateProcessor->setValue('latePolicy0', str_replace("\n", '</w:t><w:br/><w:t>', $latePolicy));
+                //$templateProcessor->setValue('latePolicy0', str_replace("\n", '</w:t><w:br/><w:t>', $latePolicy));
+                $templateProcessor->setValue('latePolicy0', $this->wordText($latePolicy));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('latePolicy' . $i, '');
@@ -1990,7 +2070,8 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($MEArr as $index => $courseME) {
                     $templateProcessor->cloneBlock('NoMissingExam');
-                    $templateProcessor->setValue('missingExam' . $i, $courseME . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('missingExam' . $i, $courseME . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('missingExam' . $i, $this->wordText($courseME));
                     $i++;
                 }
 
@@ -1999,7 +2080,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NoMissingExam');
-                $templateProcessor->setValue('missingExam0', str_replace("\n", '</w:t><w:br/><w:t>', $missingExam));
+                //$templateProcessor->setValue('missingExam0', str_replace("\n", '</w:t><w:br/><w:t>', $missingExam));
+                $templateProcessor->setValue('missingExam0', $this->wordText($missingExam));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('missingExam' . $i, '');
@@ -2017,7 +2099,9 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($MAArr as $index => $courseMA) {
                     $templateProcessor->cloneBlock('NomissingActivity');
-                    $templateProcessor->setValue('missingActivity' . $i, $courseMA . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('missingActivity' . $i, $courseMA . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('missingActivity' . $i, $this->wordText($courseMA));
+
                     $i++;
                 }
 
@@ -2026,7 +2110,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NomissingActivity');
-                $templateProcessor->setValue('missingActivity0', str_replace("\n", '</w:t><w:br/><w:t>', $missingActivity));
+                //$templateProcessor->setValue('missingActivity0', str_replace("\n", '</w:t><w:br/><w:t>', $missingActivity));
+                $templateProcessor->setValue('missingActivity0', $this->wordText($missingActivity));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('missingActivity' . $i, '');
@@ -2044,7 +2129,8 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($PCArr as $index => $coursePC) {
                     $templateProcessor->cloneBlock('NopassingCriteria');
-                    $templateProcessor->setValue('passingCriteria' . $i, $coursePC . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('passingCriteria' . $i, $coursePC . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('passingCriteria' . $i, $this->wordText($coursePC));
                     $i++;
                 }
 
@@ -2053,7 +2139,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NopassingCriteria');
-                $templateProcessor->setValue('passingCriteria0', str_replace("\n", '</w:t><w:br/><w:t>', $passingCriteria));
+                //$templateProcessor->setValue('passingCriteria0', str_replace("\n", '</w:t><w:br/><w:t>', $passingCriteria));
+                $templateProcessor->setValue('passingCriteria0', $this->wordText($passingCriteria));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('passingCriteria' . $i, '');
@@ -2078,12 +2165,13 @@ class SyllabusController extends Controller
                 if ($rowIndex == 0) {
                     foreach ($row as $headerIndex => $header) {
                         $heading = ($header->val) ? $header->val : '';
-                        $courseScheduleTable->addCell(null, $tableHeaderRowStyle)->addText($heading, $tableHeaderFontStyle);
+                        $courseScheduleTable->addCell(null, $tableHeaderRowStyle)->addText($this->WordText($heading), $tableHeaderFontStyle);
                     }
                 } else {
                     foreach ($row as $colIndex => $rowItem) {
                         $data = ($rowItem->val) ? $rowItem->val : '';
-                        $courseScheduleTable->addCell()->addText($data);
+                        $courseScheduleTable->addCell()->addText($this->WordText($data));
+                        
                     }
                 }
             }
@@ -2163,7 +2251,8 @@ class SyllabusController extends Controller
             if ($ext == 'pdf') {
                 foreach ($licenseArr as $index => $licenseLine) {
                     $templateProcessor->cloneBlock('NoLicense');
-                    $templateProcessor->setValue('license' . $i, htmlspecialchars($licenseLine, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                    //$templateProcessor->setValue('license' . $i, htmlspecialchars($licenseLine, ENT_QUOTES | ENT_HTML5) . '</w:t><w:br/><w:t>');
+                    $templateProcessor->setValue('license' . $i, $this->wordText($licenseLine));
                     $i++;
                 }
                 for ($i; $i <= 20; $i++) {
@@ -2171,7 +2260,8 @@ class SyllabusController extends Controller
                 }
             } else {
                 $templateProcessor->cloneBlock('NoLicense');
-                $templateProcessor->setValue('license0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->license));
+                //$templateProcessor->setValue('license0', str_replace("\n", '</w:t><w:br/><w:t>', $syllabus->license));
+                $templateProcessor->setValue('license0', $this->wordText($syllabus->license));
                 $i++;
                 for ($i; $i <= 20; $i++) {
                     $templateProcessor->setValue('license' . $i, '');
@@ -2222,7 +2312,34 @@ class SyllabusController extends Controller
 
         return response()->download($fileName . $wordFileExt)->deleteFileAfterSend(true);
     }
-    private function sanitizeXml($xml) { return preg_replace('/&(?!amp;|lt;|gt;|quot;|apos;)/', '&amp;', $xml); }
+    
+
+    
+private function sanitizeXml($xml)
+{   
+
+    return preg_replace(
+        '/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9A-Fa-f]+;)/',
+        '&amp;',
+        $xml
+    );
+
+    
+
+}
+
+
+private function wordText($text)
+{
+
+
+    $text = str_replace("\\n", "\n", (string)$text);                 // normalize \n
+    $escaped = htmlspecialchars($text, ENT_QUOTES | ENT_XML1, 'UTF-8'); // XML-escape
+    return str_replace("\n", '</w:t><w:br/><w:t>', $escaped);         // insert Word line breaks
+
+}
+
+
 
     private function addAlignmentToWordDoc($syllabusId, $docTemplate, $styles)
     {
