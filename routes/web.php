@@ -262,10 +262,4 @@ Route::middleware('web')->prefix(config('backpack.base.route_prefix'))->group(fu
 Route::get('/accountInformation', [App\Http\Controllers\Auth\AccountInformationController::class, 'index'])->name('accountInformation');
 Route::post('/accountInformation-update', [App\Http\Controllers\Auth\AccountInformationController::class, 'update'])->name('accountInformation.update');
 
-Route::get('/clear-cache', function () {
-    $exitCode = Artisan::call('config:cache');
-    $exitCode = Artisan::call('config:clear');
-    $exitCode = Artisan::call('cache:clear');
 
-    return 'DONE'; //Return anything
-});
