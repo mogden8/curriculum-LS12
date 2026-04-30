@@ -1,4 +1,9 @@
-
+<div class="alert alert-warning d-flex align-items-center" role="alert" style="text-align:justify">
+        <i class="bi bi-info-circle-fill pr-2 fs-3"></i>
+        <div>
+            The <b>UBC Curriculum MAP</b> will be undergoing maintenance on <b>Thursday April 30th from 9AM-12PM</b>. The site will not function as expected while the update is underway so we strongly advise against using the tool during this period to prevent lost data. Please email <a href="ctl.helpdesk@ubc.ca">ctl.helpdesk@ubc.ca</a> with any questions.
+        </div>
+</div>
 <div class="mt-4 mb-5">
     <div class="row">
         <div class="col">

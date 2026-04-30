@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="alert alert-warning d-flex align-items-center" role="alert" style="text-align:justify">
+        <i class="bi bi-info-circle-fill pr-2 fs-3"></i>
+        <div>
+            The <b>UBC Curriculum MAP</b> will be undergoing maintenance on <b>Thursday April 30th from 9AM-12PM</b>. The site will not function as expected while the update is underway so we strongly advise against using the tool during this period to prevent lost data. Please email <a href="ctl.helpdesk@ubc.ca">ctl.helpdesk@ubc.ca</a> with any questions.
+        </div>
+</div>
 <link href=" {{ asset('css/accordions.css') }}" rel="stylesheet" type="text/css" >
 <!--Link for FontAwesome Font for the arrows for the accordions.-->
 <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" rel="stylesheet" type="text/css" >
