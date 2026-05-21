@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Course;
+use App\Models\PLOCategory;
 use App\Models\Program;
 use App\Models\User;
 use Carbon\Carbon;
@@ -146,6 +147,87 @@ class ProgramTest extends TestCase
 
         Program::where('program_id', $program->program_id)->delete();
         User::where('email', 'test-program-reorder@ubc.ca')->delete();
+    }
+
+    public function test_reorder_plo_categories_normalizes_null_positions(): void
+    {
+        User::where('email', 'test-program-null-category-reorder@ubc.ca')->delete();
+        Program::where('program', 'Bachelor of Null Category Reorder Testing')->delete();
+
+        DB::table('users')->insert([
+            'name' => 'Test Program Null Category Reorder',
+            'email' => 'test-program-null-category-reorder@ubc.ca',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
+
+        $user = User::where('email', 'test-program-null-category-reorder@ubc.ca')->first();
+
+        DB::table('programs')->insert([
+            'program' => 'Bachelor of Null Category Reorder Testing',
+            'campus' => 'Okanagan',
+            'faculty' => 'Irving K. Barber Faculty of Science',
+            'level' => 'Bachelors',
+            'status' => -1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'last_modified_user' => $user->name,
+        ]);
+
+        $program = Program::where('program', 'Bachelor of Null Category Reorder Testing')->orderBy('program_id', 'DESC')->first();
+
+        $firstCategoryId = DB::table('p_l_o_categories')->insertGetId([
+            'program_id' => $program->program_id,
+            'plo_category' => 'First null category',
+            'position' => null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $secondCategoryId = DB::table('p_l_o_categories')->insertGetId([
+            'program_id' => $program->program_id,
+            'plo_category' => 'Second null category',
+            'position' => null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $thirdCategoryId = DB::table('p_l_o_categories')->insertGetId([
+            'program_id' => $program->program_id,
+            'plo_category' => 'Third null category',
+            'position' => null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $this->actingAs($user)->post(route('program.category.reorder', $program->program_id), [
+            'categories_pos' => [
+                $thirdCategoryId,
+            ],
+        ]);
+
+        $this->assertDatabaseHas('p_l_o_categories', [
+            'plo_category_id' => $thirdCategoryId,
+            'position' => 1,
+        ]);
+
+        $this->assertDatabaseHas('p_l_o_categories', [
+            'plo_category_id' => $firstCategoryId,
+            'position' => 2,
+        ]);
+
+        $this->assertDatabaseHas('p_l_o_categories', [
+            'plo_category_id' => $secondCategoryId,
+            'position' => 3,
+        ]);
+
+        $this->assertSame(
+            [$thirdCategoryId, $firstCategoryId, $secondCategoryId],
+            PLOCategory::where('program_id', $program->program_id)->pluck('plo_category_id')->all()
+        );
+
+        Program::where('program_id', $program->program_id)->delete();
+        User::where('email', 'test-program-null-category-reorder@ubc.ca')->delete();
     }
 
     /*

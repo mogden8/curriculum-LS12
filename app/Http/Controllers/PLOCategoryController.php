@@ -52,6 +52,7 @@ class PLOCategoryController extends Controller implements HasMiddleware
             $programId = $request->input('program_id');
             // get this program
             $program = Program::find($programId);
+            PLOCategory::normalizePositionsForProgram($programId);
             // get the current plo categories
             $currentPLOCategories = $request->input('current_plo_categories', []);
             // get the new plo categories
@@ -74,6 +75,7 @@ class PLOCategoryController extends Controller implements HasMiddleware
                     $ploCategory->delete();
                 }
             }
+            PLOCategory::normalizePositionsForProgram($programId);
             // add new plo categories
             if ($newPLOCategories) {
                 $maxPosition = PLOCategory::where('program_id', $programId)->max('position') ?? 0;
@@ -147,6 +149,7 @@ class PLOCategoryController extends Controller implements HasMiddleware
             // update courses 'updated_at' field
             $program = Program::find($request->input('program_id'));
             $program->touch();
+            PLOCategory::normalizePositionsForProgram($request->input('program_id'));
 
             $request->session()->flash('success', 'Plo cateogry updated');
         } else {
@@ -176,6 +179,7 @@ class PLOCategoryController extends Controller implements HasMiddleware
             // update courses 'updated_at' field
             $program = Program::find($request->input('program_id'));
             $program->touch();
+            PLOCategory::normalizePositionsForProgram($request->input('program_id'));
 
             $request->session()->flash('success', 'Plo cateogry deleted');
         } else {
@@ -192,6 +196,7 @@ class PLOCategoryController extends Controller implements HasMiddleware
         try {
             // Delete all categories for this program
             PLOCategory::where('program_id', $programId)->delete();
+            PLOCategory::normalizePositionsForProgram($programId);
 
             // Update program's last modified user
             $user = User::find(Auth::id());
@@ -210,7 +215,21 @@ class PLOCategoryController extends Controller implements HasMiddleware
     public function reorder(Request $request, $programId)
     {
         try {
-            $categoryOrder = $request->input('categories_pos', []);
+            PLOCategory::normalizePositionsForProgram($programId);
+
+            $submittedCategoryOrder = collect($request->input('categories_pos', []))
+                ->map(fn ($categoryId) => (int) $categoryId)
+                ->filter()
+                ->unique()
+                ->values();
+
+            $existingCategoryIds = PLOCategory::where('program_id', $programId)
+                ->pluck('plo_category_id');
+
+            $categoryOrder = $submittedCategoryOrder
+                ->filter(fn ($categoryId) => $existingCategoryIds->contains($categoryId))
+                ->merge($existingCategoryIds->diff($submittedCategoryOrder))
+                ->values();
 
             foreach ($categoryOrder as $position => $categoryId) {
                 PLOCategory::where('program_id', $programId)

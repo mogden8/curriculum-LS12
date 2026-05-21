@@ -74,6 +74,8 @@ class ProgramWizardController extends Controller implements HasMiddleware
         ->select(['program_id','program','level','faculty','department','campus'])
         ->findOrFail($program_id);
 
+    PLOCategory::normalizePositionsForProgram($program_id);
+
     // Collaborators ONLY for this program (NOT all the user's programs)
     $programCollaborators = $program->users()->select(['users.id','users.name','users.email'])->get();
 
