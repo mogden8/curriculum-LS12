@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    const ploSaveButton = $('.plo-save-order');
-    const categorySaveButton = $('.category-save-order');
-
-    // Initialize Sortable for each category section
+    // Initialize Sortable for each category section.
+    // Each .plo-category-section is now a direct <tbody> child of <table> (no nesting),
+    // so SortableJS can find and manipulate them correctly.
     $('.plo-category-section').each(function() {
         new Sortable(this, {
             group: {
@@ -12,90 +11,45 @@ $(document).ready(function() {
                 put: false
             },
             animation: 150,
-            handle: '.drag-handle', // Drag handle class
-            ghostClass: 'sortable-ghost',
-            chosenClass: 'sortable-chosen',
-            dragClass: 'sortable-drag',
-            onEnd: function(evt) {
-                // Update hidden input fields for new order
-                updatePLOOrder(evt.to);
-                enableSaveButton(ploSaveButton);
-            }
-        });
-    });
-
-    // Initialize Sortable for the PLO category list
-    $('.plo-category-list').each(function() {
-        new Sortable(this, {
-            animation: 150,
             handle: '.drag-handle',
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',
             dragClass: 'sortable-drag',
-            onEnd: function(evt) {
-                updatePLOCategoryOrder(evt.to);
-                enableSaveButton(categorySaveButton);
+            onEnd: function() {
+                updatePLOOrder();
             }
         });
     });
 
-    function updatePLOOrder(container) {
-        // Get all PLO sections to update the complete order
-        const allPLOSections = $('.plo-category-section');
+    function updatePLOOrder() {
+        // Collect all PLO IDs in their current visual order across all category sections.
         const allPLOIds = [];
 
-        // Clear all existing position inputs
-        $('input[name="plos_pos[]"]').remove();
-
-        // Collect PLO IDs in their current order from all sections
-        allPLOSections.each(function() {
-            const rows = $(this).find('tr[data-plo-id]');
-            rows.each(function() {
-                const ploId = $(this).data('plo-id');
-                allPLOIds.push(ploId);
-
-                // Create a new hidden input for the PLO's position
-                const input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'plos_pos[]')
-                    .val(ploId);
-                $(this).append(input);
+        $('.plo-category-section').each(function() {
+            $(this).find('tr[data-plo-id]').each(function() {
+                allPLOIds.push($(this).data('plo-id'));
             });
         });
-    }
 
-    function updatePLOCategoryOrder(container) {
-        $('input[name="categories_pos[]"]').remove();
+        // Write the full order as a single comma-separated value into the one hidden
+        // input that lives directly inside #ploReorderForm. This avoids appending
+        // inputs to <tr> elements (invalid HTML) or scattering inputs across the DOM.
+        $('#plos_order').val(allPLOIds.join(','));
 
-        $('.plo-category-list tr[data-category-id]').each(function() {
-            const categoryId = $(this).data('category-id');
-
-            const input = $('<input>')
-                .attr('type', 'hidden')
-                .attr('name', 'categories_pos[]')
-                .attr('form', 'savePLOCategoryOrder')
-                .val(categoryId);
-            $(this).append(input);
-        });
-    }
-
-    function enableSaveButton(button) {
-        button.prop('disabled', false)
+        // Enable the save button now that an order change has been recorded.
+        $('button[type="submit"]').prop('disabled', false)
             .addClass('btn-success')
             .removeClass('btn-secondary');
     }
 
-    function disableSaveButton(button) {
-        button.prop('disabled', true)
-            .addClass('btn-secondary')
-            .removeClass('btn-success');
-    }
-
-    // Initially disable order save buttons until changes are made
-    disableSaveButton(ploSaveButton);
-    disableSaveButton(categorySaveButton);
-
-    // Update all sections on page load to ensure proper order
+    // Populate the hidden input with the initial page-load order so that a save
+    // without any dragging still submits valid data.
     updatePLOOrder();
-    updatePLOCategoryOrder();
+
+    // Disable save button until the user actually drags something.
+    // (updatePLOOrder above has already written the initial value, so the input is
+    // ready; we just keep the button visually disabled until a real change happens.)
+    $('button[type="submit"]').prop('disabled', true)
+        .addClass('btn-secondary')
+        .removeClass('btn-success');
 });
