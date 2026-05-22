@@ -59,7 +59,7 @@ $(document).ready(function() {
                     .attr('type', 'hidden')
                     .attr('name', 'plos_pos[]')
                     .val(ploId);
-                $(this).append(input);
+                $(this).find("td:last-child").append(input);
             });
         });
     }
@@ -75,7 +75,7 @@ $(document).ready(function() {
                 .attr('name', 'categories_pos[]')
                 .attr('form', 'savePLOCategoryOrder')
                 .val(categoryId);
-            $(this).append(input);
+            $(this).find("td:last-child").append(input);
         });
     }
 

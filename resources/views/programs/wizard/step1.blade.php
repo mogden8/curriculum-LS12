@@ -375,20 +375,20 @@
                                 <form action="{{route('program.plo.reorder', $program->program_id)}}" method="POST">
                                     @csrf
                                     <table class="table table-light table-bordered table" style="width: 100%; margin: auto; table-layout:auto;">
-                                        <tbody>
-                                            <?php $count = 0 ?>
                                             <!--Categories for PLOs -->
                                             @foreach ($ploCategories as $plo)
                                                 @if ($plo->plo_category != NULL)
                                                     @if ($plo->plos->count() > 0)
-                                                        <tr class="mt-5">
-                                                            <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
-                                                        </tr>
-                                                        <tr class="table-primary">
-                                                            <th class="text-center" style="width: 5%">#</th>
-                                                            <th class="text-left" colspan="2">Program Learning Outcome</th>
-                                                            <th class="text-center w-25" colspan="1">Actions</th>
-                                                        </tr>
+                                                        <tbody>
+                                                            <tr class="mt-5">
+                                                                <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
+                                                            </tr>
+                                                            <tr class="table-primary">
+                                                                <th class="text-center" style="width: 5%">#</th>
+                                                                <th class="text-left" colspan="2">Program Learning Outcome</th>
+                                                                <th class="text-center w-25" colspan="1">Actions</th>
+                                                            </tr>
+                                                        </tbody>
                                                         <tbody class="plo-category-section" data-category-id="{{$plo->plo_category_id}}">
                                                             @foreach($ploProgramCategories as $index => $ploCat)
                                                                 @if ($plo->plo_category_id == $ploCat->plo_category_id)
@@ -413,26 +413,30 @@
                                                             @endforeach
                                                         </tbody>
                                                     @else
-                                                        <tr class="mt-5">
-                                                            <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
-                                                        </tr>
-                                                        <tr class="alert alert-warning wizard">
-                                                            <th colspan="4" style="background-color: #fff3cd;"><i class="bi bi-exclamation-circle-fill pr-2 fs-5"></i>There are no program learning outcomes set for this PLO category. </th>
-                                                        </tr>
+                                                        <tbody>
+                                                            <tr class="mt-5">
+                                                                <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
+                                                            </tr>
+                                                            <tr class="alert alert-warning wizard">
+                                                                <th colspan="4" style="background-color: #fff3cd;"><i class="bi bi-exclamation-circle-fill pr-2 fs-5"></i>There are no program learning outcomes set for this PLO category. </th>
+                                                            </tr>
+                                                        </tbody>
                                                     @endif
                                                 @endif
                                             @endforeach
 
                                             <!-- UnCategorized PLOs -->
                                             @if($hasUncategorized)
-                                                <tr>
-                                                    <th class="text-left" colspan="4" style="background-color: #ebebeb;">Uncategorized PLOs</th>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th class="text-center" style="width: 5%">#</th>
-                                                    <th class="text-left" colspan="2">Program Learning Outcome</th>
-                                                    <th class="text-center" colspan="1">Actions</th>
-                                                </tr>
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="text-left" colspan="4" style="background-color: #ebebeb;">Uncategorized PLOs</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th class="text-center" style="width: 5%">#</th>
+                                                        <th class="text-left" colspan="2">Program Learning Outcome</th>
+                                                        <th class="text-center" colspan="1">Actions</th>
+                                                    </tr>
+                                                </tbody>
                                                 <tbody class="plo-category-section" data-category-id="uncategorized">
                                                     @foreach($unCategorizedPLOS as $unCatIndex => $unCatplo)
                                                         <tr data-plo-id="{{$unCatplo->pl_outcome_id}}">
@@ -455,7 +459,6 @@
                                                     @endforeach
                                                 </tbody>
                                             @endif
-                                        </tbody>
                                     </table>
                                     <div class="mt-4">
                                         <button type="submit" class="btn btn-success float-right col-2 plo-save-order">Save Order</button>
