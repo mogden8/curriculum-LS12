@@ -243,26 +243,19 @@
                                 </div>
 
                             @else
-                                <form id="savePLOCategoryOrder" action="{{route('program.category.reorder', $program->program_id)}}" method="POST" class="category-reorder-form">
-                                    @csrf
-                                </form>
                                 <table class="table table-light table-bordered" >
-                                        <thead>
-                                            <tr class="table-primary">
-                                                <th class="text-center" style="width: 5%">#</th>
-                                                <th>PLO Category</th>
-                                                <th class="text-center w-25">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="plo-category-list">
-                                            @foreach($ploCategories as $category)
-                                            <tr data-category-id="{{$category->plo_category_id}}">
-                                                <td class="text-center fw-bold drag-handle">↕</td>
-                                                <td>
-                                                    {{$category->plo_category}}
-                                                </td>
+                                    <tr class="table-primary">
+                                        <th>PLO Category</th>
+                                        <th class="text-center w-25">Actions</th>
+                                    </tr>
 
-                                                <td class="text-center align-middle">
+                                    @foreach($ploCategories as $category)
+                                    <tr>
+                                        <td data-category-id="{{$category->plo_category_id}}">
+                                            {{$category->plo_category}}
+                                        </td>
+
+                                        <td class="text-center align-middle">
                                             <button type="button" style="width:60px;" class="btn btn-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{$category->plo_category_id}}">
                                                 Edit
                                             </button>
@@ -333,15 +326,10 @@
                                                     </div>
                                             </div>
                                             <!-- End of Category Delete Confirmation Modal -->
-                                                    <input type="hidden" name="categories_pos[]" value="{{$category->plo_category_id}}" form="savePLOCategoryOrder">
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="mt-4">
-                                        <button type="submit" form="savePLOCategoryOrder" class="btn btn-success float-right col-2 category-save-order">Save Order</button>
-                                    </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
                             @endif
                         </div>
                         <div class="card-footer text-end">
@@ -372,15 +360,17 @@
                                     <i class="bi bi-exclamation-circle-fill"></i>There are no program learning outcomes for this program.
                                 </div>
                             @else
-                                <form action="{{route('program.plo.reorder', $program->program_id)}}" method="POST">
+                                <form id="ploReorderForm" action="{{route('program.plo.reorder', $program->program_id)}}" method="POST">
                                     @csrf
+                                    {{-- Single hidden input managed by plo_reorder.js; holds comma-separated PLO IDs in current order --}}
+                                    <input type="hidden" id="plos_order" name="plos_order" value="">
                                     <table class="table table-light table-bordered table" style="width: 100%; margin: auto; table-layout:auto;">
-                                        <tbody>
-                                            <?php $count = 0 ?>
-                                            <!--Categories for PLOs -->
-                                            @foreach ($ploCategories as $plo)
-                                                @if ($plo->plo_category != NULL)
-                                                    @if ($plo->plos->count() > 0)
+                                        <!--Categories for PLOs -->
+                                        @foreach ($ploCategories as $plo)
+                                            @if ($plo->plo_category != NULL)
+                                                @if ($plo->plos->count() > 0)
+                                                    {{-- Category heading rows in their own tbody so the sortable tbody below is a direct child of <table> --}}
+                                                    <tbody>
                                                         <tr class="mt-5">
                                                             <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
                                                         </tr>
@@ -389,42 +379,46 @@
                                                             <th class="text-left" colspan="2">Program Learning Outcome</th>
                                                             <th class="text-center w-25" colspan="1">Actions</th>
                                                         </tr>
-                                                        <tbody class="plo-category-section" data-category-id="{{$plo->plo_category_id}}">
-                                                            @foreach($ploProgramCategories as $index => $ploCat)
-                                                                @if ($plo->plo_category_id == $ploCat->plo_category_id)
-                                                                    <tr data-plo-id="{{$ploCat->pl_outcome_id}}">
-                                                                        <td class="text-center fw-bold drag-handle">↕</td>
-                                                                        <td class="text-center" style="width: 10%;">{{$defaultShortFormsIndex[$ploCat->pl_outcome_id]}}</td>
-                                                                        <td>
-                                                                            <span style="font-weight: bold;">{{$ploCat->plo_shortphrase}}</span><br>
-                                                                            {{$ploCat->pl_outcome}}
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <button type="button" style="width:60px;" class="btn btn-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editPLO{{$ploCat->pl_outcome_id}}">
-                                                                                Edit
-                                                                            </button>
-                                                                            <button style="width:60px;" type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deletePLO{{$ploCat->pl_outcome_id}}">
-                                                                                Delete
-                                                                            </button>
-                                                                        </td>
-                                                                        <input type="hidden" name="plos_pos[]" value="{{$ploCat->pl_outcome_id}}">
-                                                                    </tr>
-                                                                @endif
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
+                                                    </tbody>
+                                                    {{-- Sortable tbody — direct child of <table>, no nesting --}}
+                                                    <tbody class="plo-category-section" data-category-id="{{$plo->plo_category_id}}">
+                                                        @foreach($ploProgramCategories as $index => $ploCat)
+                                                            @if ($plo->plo_category_id == $ploCat->plo_category_id)
+                                                                <tr data-plo-id="{{$ploCat->pl_outcome_id}}">
+                                                                    <td class="text-center fw-bold drag-handle">↕</td>
+                                                                    <td class="text-center" style="width: 10%;">{{$defaultShortFormsIndex[$ploCat->pl_outcome_id]}}</td>
+                                                                    <td>
+                                                                        <span style="font-weight: bold;">{{$ploCat->plo_shortphrase}}</span><br>
+                                                                        {{$ploCat->pl_outcome}}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button type="button" style="width:60px;" class="btn btn-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editPLO{{$ploCat->pl_outcome_id}}">
+                                                                            Edit
+                                                                        </button>
+                                                                        <button style="width:60px;" type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deletePLO{{$ploCat->pl_outcome_id}}">
+                                                                            Delete
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
                                                         <tr class="mt-5">
                                                             <th class="text-left" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
                                                         </tr>
                                                         <tr class="alert alert-warning wizard">
                                                             <th colspan="4" style="background-color: #fff3cd;"><i class="bi bi-exclamation-circle-fill pr-2 fs-5"></i>There are no program learning outcomes set for this PLO category. </th>
                                                         </tr>
-                                                    @endif
+                                                    </tbody>
                                                 @endif
-                                            @endforeach
+                                            @endif
+                                        @endforeach
 
-                                            <!-- UnCategorized PLOs -->
-                                            @if($hasUncategorized)
+                                        <!-- UnCategorized PLOs -->
+                                        @if($hasUncategorized)
+                                            <tbody>
                                                 <tr>
                                                     <th class="text-left" colspan="4" style="background-color: #ebebeb;">Uncategorized PLOs</th>
                                                 </tr>
@@ -433,32 +427,31 @@
                                                     <th class="text-left" colspan="2">Program Learning Outcome</th>
                                                     <th class="text-center" colspan="1">Actions</th>
                                                 </tr>
-                                                <tbody class="plo-category-section" data-category-id="uncategorized">
-                                                    @foreach($unCategorizedPLOS as $unCatIndex => $unCatplo)
-                                                        <tr data-plo-id="{{$unCatplo->pl_outcome_id}}">
-                                                            <td class="text-center fw-bold drag-handle">↕</td>
-                                                            <td class="text-center" style="width: 10%;">{{$defaultShortFormsIndex[$unCatplo->pl_outcome_id]}}</td>
-                                                            <td>
-                                                                <span style="font-weight: bold;">{{$unCatplo->plo_shortphrase}}</span><br>
-                                                                {{$unCatplo->pl_outcome}}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button type="button" style="width:60px;" class="btn btn-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editPLO{{$unCatplo->pl_outcome_id}}">
-                                                                    Edit
-                                                                </button>
-                                                                <button style="width:60px;" type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deletePLO{{$unCatplo->pl_outcome_id}}">
-                                                                    Delete
-                                                                </button>
-                                                            </td>
-                                                            <input type="hidden" name="plos_pos[]" value="{{$unCatplo->pl_outcome_id}}">
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            @endif
-                                        </tbody>
+                                            </tbody>
+                                            <tbody class="plo-category-section" data-category-id="uncategorized">
+                                                @foreach($unCategorizedPLOS as $unCatIndex => $unCatplo)
+                                                    <tr data-plo-id="{{$unCatplo->pl_outcome_id}}">
+                                                        <td class="text-center fw-bold drag-handle">↕</td>
+                                                        <td class="text-center" style="width: 10%;">{{$defaultShortFormsIndex[$unCatplo->pl_outcome_id]}}</td>
+                                                        <td>
+                                                            <span style="font-weight: bold;">{{$unCatplo->plo_shortphrase}}</span><br>
+                                                            {{$unCatplo->pl_outcome}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button type="button" style="width:60px;" class="btn btn-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editPLO{{$unCatplo->pl_outcome_id}}">
+                                                                Edit
+                                                            </button>
+                                                            <button style="width:60px;" type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deletePLO{{$unCatplo->pl_outcome_id}}">
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        @endif
                                     </table>
                                     <div class="mt-4">
-                                        <button type="submit" class="btn btn-success float-right col-2 plo-save-order">Save Order</button>
+                                        <button type="submit" class="btn btn-success float-right col-2">Save Order</button>
                                     </div>
                                 </form>
                             @endif
@@ -746,7 +739,7 @@
                     <h5 class="modal-title" id="editPLOModalLabel">Edit Program Learning Outcome (PLO)</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('program.outcomes.update', $plo->pl_outcome_id)}}" method="POST">
+                <form action="{{route('plo.update', $plo->pl_outcome_id)}}" method="POST">
                     @csrf
                     {{method_field('POST')}}
                     <div class="modal-body">
