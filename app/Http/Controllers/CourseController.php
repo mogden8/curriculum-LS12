@@ -533,7 +533,7 @@ class CourseController extends Controller implements HasMiddleware
             // get the course
             $course = Course::find($course_id);
             // get the course learning outcomes in order specified by user
-            $courseLearningOutcomes = $course->learningOutcomes()->orderBy('pos_in_alignment', 'asc')->get();
+            $courseLearningOutcomes = $course->learningOutcomes()->orderBy('pos_in_alignment')->get();
             // get all the programs this course belongs to
             $coursePrograms = Course::find($course_id)->programs;
             // get the PLOs for each program

@@ -274,8 +274,8 @@ class LearningOutcomeController extends Controller implements HasMiddleware
     {
         $outcomes = $course->learningOutcomes()
             ->orderByRaw('CASE WHEN pos_in_alignment = 0 THEN 1 ELSE 0 END')
-            ->orderBy('pos_in_alignment', 'asc')
-            ->orderBy('l_outcome_id', 'asc')
+            ->orderBy('pos_in_alignment')
+            ->orderBy('l_outcome_id')
             ->get();
 
         $filename = sprintf(

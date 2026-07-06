@@ -315,7 +315,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             // Check if any PLOs have been modified
             $latestPLO = ProgramLearningOutcome::where('program_id', $programId)
-                ->orderBy('updated_at', 'desc')
+                ->orderByDesc('updated_at')
                 ->first();
             if ($latestPLO && $latestPLO->updated_at->timestamp > $lastModified) {
                 $lastModified = $latestPLO->updated_at->timestamp;
@@ -328,7 +328,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             if (! empty($courseIds)) {
                 $latestCourse = Course::whereIn('course_id', $courseIds)
-                    ->orderBy('updated_at', 'desc')
+                    ->orderByDesc('updated_at')
                     ->first();
                 if ($latestCourse && $latestCourse->updated_at->timestamp > $lastModified) {
                     $lastModified = $latestCourse->updated_at->timestamp;
@@ -397,7 +397,7 @@ class ProgramController extends Controller implements HasMiddleware
                 $programMappingScalesColors[$index] = (strtolower(MappingScale::where('map_scale_id', $mappingScaleIdsArr[$index])->pluck('colour')->first()) == '#ffffff' || strtolower(MappingScale::where('map_scale_id', $mappingScaleIdsArr[$index])->pluck('colour')->first()) == '#fff' ? '#6c757d' : MappingScale::where('map_scale_id', $mappingScaleIdsArr[$index])->pluck('colour')->first());
             }
             // get categorized plo's for the program (ordered by category then outcome id)
-            $plosInCatOrdered = ProgramLearningOutcome::where('program_id', $programId)->whereNotNull('plo_category_id')->orderBy('plo_category_id', 'ASC')->orderBy('pl_outcome_id', 'ASC')->get();
+            $plosInCatOrdered = ProgramLearningOutcome::where('program_id', $programId)->whereNotNull('plo_category_id')->orderBy('plo_category_id')->orderBy('pl_outcome_id')->get();
             // get UnCategorized PLO's
             $unCatPLOS = ProgramLearningOutcome::where('program_id', $programId)->whereNull('plo_category_id')->get();
             // Merge Categorized PLOs and Uncategorized PLOs to get allPlos in the correct order
@@ -1255,23 +1255,23 @@ class ProgramController extends Controller implements HasMiddleware
 
             // Get all PLOs ordered consistently
             $allPLO = ProgramLearningOutcome::where('program_id', $program_id)
-                ->orderBy('plo_category_id', 'asc')
-                ->orderBy('position', 'asc')
+                ->orderBy('plo_category_id')
+                ->orderBy('position')
                 ->get();
 
             // Get categorized PLOs with proper ordering
             $ploProgramCategories = ProgramLearningOutcome::where('program_id', $program_id)
                 ->whereNotNull('plo_category_id')
-                ->orderBy('plo_category_id', 'asc')
-                ->orderBy('position', 'asc')
+                ->orderBy('plo_category_id')
+                ->orderBy('position')
                 ->get();
 
             // Get all PLOs with category info ordered
             $plos = DB::table('program_learning_outcomes')
                 ->leftJoin('p_l_o_categories', 'program_learning_outcomes.plo_category_id', '=', 'p_l_o_categories.plo_category_id')
                 ->where('program_learning_outcomes.program_id', $program_id)
-                ->orderBy('program_learning_outcomes.plo_category_id', 'asc')
-                ->orderBy('program_learning_outcomes.position', 'asc')
+                ->orderBy('program_learning_outcomes.plo_category_id')
+                ->orderBy('program_learning_outcomes.position')
                 ->get();
 
             // get defaultShortForms based on PLO Category, then Creation Order
@@ -1281,7 +1281,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             foreach ($ploCategories as $ploCat) {
                 $plosByCat = ProgramLearningOutcome::where('plo_category_id', $ploCat['plo_category_id'])
-                    ->orderBy('position', 'asc')
+                    ->orderBy('position')
                     ->get();
                 array_push($plosInOrderCat, $plosByCat);
             }
@@ -1298,7 +1298,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             $unCategorizedPLOS = ProgramLearningOutcome::where('program_id', $program_id)
                 ->whereNull('plo_category_id')
-                ->orderBy('position', 'asc')
+                ->orderBy('position')
                 ->get();
 
             foreach ($unCategorizedPLOS as $unCatPLO) {
@@ -1981,7 +1981,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->mergeCells('B1:'.$columns[$program->programLearningOutcomes->count()].'1');
             // create courses array to add to the outcome maps sheet
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
             // add courses to their column in the sheet
@@ -1992,7 +1992,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->getStyle('A4:A100')->getFont()->setBold(true);
 
             // for each plo, get the outcome map from its course mapping $PLOsToCoursesToOutcomeMap[$plo->pl_outcome_id][$course->course_id] = map
-            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get());
+            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code')->orderBy('course_num')->get());
             $programOutcomeMaps = $this->getOutcomeMaps($program->programLearningOutcomes, $coursesToCLOs, []);
             $PLOsToCoursesToOutcomeMap = $this->createCDFArray($programOutcomeMaps, []);
             $PLOsToCoursesToOutcomeMap = $this->frequencyDistribution($programOutcomeMaps, $PLOsToCoursesToOutcomeMap);
@@ -2148,7 +2148,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->mergeCells('B1:'.$columns[$program->programLearningOutcomes->count()].'1');
             // create courses array to add to the outcome maps sheet
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
             // add courses to their column in the sheet
@@ -2159,7 +2159,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->getStyle('A4:A100')->getFont()->setBold(true);
 
             // for each plo, get the outcome map from its course mapping $PLOsToCoursesToOutcomeMap[$plo->pl_outcome_id][$course->course_id] = map
-            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get());
+            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code')->orderBy('course_num')->get());
             $programOutcomeMaps = $this->getOutcomeMaps($program->programLearningOutcomes, $coursesToCLOs, []);
             $PLOsToCoursesToOutcomeMap = $this->createCDFArray($programOutcomeMaps, []);
             $PLOsToCoursesToOutcomeMap = $this->frequencyDistribution($programOutcomeMaps, $PLOsToCoursesToOutcomeMap);
@@ -2313,7 +2313,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->mergeCells('B1:'.$columns[$program->programLearningOutcomes->count()].'1');
             // create courses array to add to the outcome maps sheet
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
             // add courses to their column in the sheet
@@ -2324,7 +2324,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->getStyle('A4:A100')->getFont()->setBold(true);
 
             // for each plo, get the outcome map from its course mapping $PLOsToCoursesToOutcomeMap[$plo->pl_outcome_id][$course->course_id] = map
-            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get());
+            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code')->orderBy('course_num')->get());
             $programOutcomeMaps = $this->getOutcomeMaps($program->programLearningOutcomes, $coursesToCLOs, []);
             /*
             //Initialize array for each pl_outcome_id with the value of null
@@ -2752,7 +2752,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->mergeCells('B1:'.$columns[$program->programLearningOutcomes->count()].'1');
             // create courses array to add to the outcome maps sheet
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
             // add courses to their column in the sheet
@@ -2763,7 +2763,7 @@ class ProgramController extends Controller implements HasMiddleware
             $sheet->getStyle('A4:A100')->getFont()->setBold(true);
 
             // for each plo, get the outcome map from its course mapping $PLOsToCoursesToOutcomeMap[$plo->pl_outcome_id][$course->course_id] = map
-            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get());
+            $coursesToCLOs = $this->getCoursesOutcomes([], $program->courses()->orderBy('course_code')->orderBy('course_num')->get());
             $programOutcomeMaps = $this->getOutcomeMaps($program->programLearningOutcomes, $coursesToCLOs, []);
             /*
             //Initialize array for each pl_outcome_id with the value of null
@@ -3862,7 +3862,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             // Retrieve all courses for the program
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
 
@@ -4091,7 +4091,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             // Retrieve all courses for the program
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
 
@@ -4324,7 +4324,7 @@ class ProgramController extends Controller implements HasMiddleware
 
             // Retrieve all courses for the program
             $courses = [];
-            foreach ($program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get() as $course) {
+            foreach ($program->courses()->orderBy('course_code')->orderBy('course_num')->get() as $course) {
                 $courses[$course->course_id] = $course->course_code.' '.$course->course_num;
             }
 

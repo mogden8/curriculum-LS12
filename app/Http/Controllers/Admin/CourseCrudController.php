@@ -622,7 +622,7 @@ class CourseCrudController extends CrudController
         $standId = $crs->first()->standard_category_id;
         $scaleCat = DB::table('standards_scale_categories')->where('scale_category_id', $scaleId)->get()->first();
         $standardsCat = DB::table('standard_categories')->where('standard_category_id', $standId)->get()->first();
-        $MScales = DB::table('standard_scales')->where('scale_category_id', $scaleId)->orderBy('standard_scale_id', 'asc')->get();
+        $MScales = DB::table('standard_scales')->where('scale_category_id', $scaleId)->orderBy('standard_scale_id')->get();
         $standards = DB::table('standards')->where('standard_category_id', $standId)->get();
         $PFunc = $accFoo1.'minmap'.''.$accFoo2;
         $custHTML .= "<div $PFunc><div class=\"accBar\" style=\"$buttonClass1\"><h3 class=\"crudribbon\">$standardsCat->sc_name (using $scaleCat->name)</h3></div></div>"

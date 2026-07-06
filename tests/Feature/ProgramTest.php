@@ -32,7 +32,7 @@ class ProgramTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response->assertRedirect('/programWizard/'.($program->program_id).'/step1');
 
@@ -45,7 +45,7 @@ class ProgramTest extends TestCase
     public function test_save_plo(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response = $this->actingAs($user)->post(route('program.outcomes.store'), [
             'new_pl_outcome' => [
@@ -69,7 +69,7 @@ class ProgramTest extends TestCase
     public function test_save_plo_category(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response = $this->actingAs($user)->post(route('program.category.store'), [
             'new_plo_categories' => [
@@ -88,7 +88,7 @@ class ProgramTest extends TestCase
         public function test_program_outcome_import()
         {
             $user = User::where('email', 'test-program@ubc.ca')->first();
-            $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+            $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
             $response=$this->actingAs($user)->post(route('program.outcomes.import'), [
                 "program_id" => $program->program_id
@@ -100,7 +100,7 @@ class ProgramTest extends TestCase
     public function test_add_default_mapping_scale(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response = $this->actingAs($user)->post(route('mappingScale.addDefaultMappingScale'), [
             'mapping_scale_categories_id' => '3',
@@ -116,7 +116,7 @@ class ProgramTest extends TestCase
     public function test_mapping_scale_store(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response = $this->actingAs($user)->post(route('program.mappingScale.store'), [
             'title' => 'Naruto',
@@ -135,7 +135,7 @@ class ProgramTest extends TestCase
     public function test_add_courses_to_program(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
         DB::table('courses')->insert([
             'course_code' => 'Test101',
             'course_title' => 'Program Testing',
@@ -164,7 +164,7 @@ class ProgramTest extends TestCase
     public function test_edit_course_required(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
         $course = Course::where('course_code', 'Test101')->first();
 
         $response = $this->actingAs($user)->post(route('courseProgram.editCourseRequired', $program->program_id), [
@@ -186,7 +186,7 @@ class ProgramTest extends TestCase
     public function test_duplicate_program(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         $response = $this->actingAs($user)->post(route('programs.duplicate', $program->program_id), [
             '_method' => 'GET',
@@ -203,7 +203,7 @@ class ProgramTest extends TestCase
     public function test_adding_collaborator(): void
     {
         $user = User::where('email', 'test-program@ubc.ca')->first();
-        $program = Program::where('program', 'Bachelor of Testing')->orderBy('program_id', 'DESC')->first();
+        $program = Program::where('program', 'Bachelor of Testing')->orderByDesc('program_id')->first();
 
         DB::table('users')->insert([
 

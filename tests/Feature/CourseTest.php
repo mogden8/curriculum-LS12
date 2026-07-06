@@ -52,7 +52,7 @@ class CourseTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         $response->assertRedirect('/courseWizard/'.($course->course_id).'/step1');
 
@@ -66,7 +66,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $response = $this->actingAs($user)->get(route('courses.pdf', $course->course_id))->assertStatus(200);
     }
 
@@ -74,7 +74,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         $response = $this->actingAs($user)->post(route('courses.duplicate', $course->course_id), [
             'course_code' => 'TEST',
@@ -91,7 +91,7 @@ class CourseTest extends TestCase
     public function test_create_clo(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // LearningOutcomeController@store
 
@@ -127,7 +127,7 @@ class CourseTest extends TestCase
     public function test_create_la(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // LearningOutcomeController@store
 
@@ -163,7 +163,7 @@ class CourseTest extends TestCase
     public function test_create_am(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // LearningOutcomeController@store
 
@@ -210,7 +210,7 @@ class CourseTest extends TestCase
     public function test_course_alignment(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $learningActivities = LearningActivity::where('course_id', $course->course_id)->get();
         $assessmentMethods = AssessmentMethod::where('course_id', $course->course_id)->get();
         $learningOutcome1 = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 1')->first();
@@ -250,7 +250,7 @@ class CourseTest extends TestCase
     public function test_reorder_am(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $assessmentMethods = AssessmentMethod::where('course_id', $course->course_id)->get();
 
         $response = $this->actingAs($user)->post(route('courses.loReorder', $course->course_id), [
@@ -271,7 +271,7 @@ class CourseTest extends TestCase
     public function test_reorder_la(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $learningActivities = LearningActivity::where('course_id', $course->course_id)->get();
 
         $response = $this->actingAs($user)->post(route('courses.loReorder', $course->course_id), [
@@ -292,7 +292,7 @@ class CourseTest extends TestCase
     public function test_reorder_clo(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $clo1 = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 1')->first();
         $clo2 = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 2')->first();
 
@@ -312,7 +312,7 @@ class CourseTest extends TestCase
     public function test_program_outcome_mapping(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $clo = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 2')->first();
 
         // create test program
@@ -392,7 +392,7 @@ class CourseTest extends TestCase
     public function test_optional_priorities_store(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         $response = $this->actingAs($user)->post(route('storeOptionalPLOs'), [
             'course_id' => $course->course_id,
@@ -412,7 +412,7 @@ class CourseTest extends TestCase
     public function test_delete_clo(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $clo = LearningOutcome::where('l_outcome', 'Test Course Learning Outcome 1')->first();
 
         $response = $this->actingAs($user)->post(route('courses.outcomes.store'), [
@@ -441,7 +441,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // LearningOutcomeController@store
 
@@ -470,7 +470,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // LearningOutcomeController@store
 
@@ -494,7 +494,7 @@ class CourseTest extends TestCase
     public function test_standards_outcome_map_store(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // setting this mapping to all "Introduced" for this course, except 1
         $response = $this->actingAs($user)->post(route('standardsOutcomeMap.store'), [
@@ -525,7 +525,7 @@ class CourseTest extends TestCase
     public function test_adding_collaborator(): void
     {
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
 
         // Create Verified User for Course Collaboration Testing
         DB::table('users')->insert([
@@ -553,7 +553,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $user2 = User::where('email', 'test-course-collab@ubc.ca')->first();
 
         $response = $this->actingAs($user)->post(route('courseUser.transferOwnership'), [
@@ -579,7 +579,7 @@ class CourseTest extends TestCase
     {
 
         $user = User::where('email', 'test-course@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $user2 = User::where('email', 'test-course-collab@ubc.ca')->first();
 
         // courses.unassign is an unused route, rather within CourseUserController.php in the store() method
@@ -598,7 +598,7 @@ class CourseTest extends TestCase
     {
 
         $user2 = User::where('email', 'test-course-collab@ubc.ca')->first();
-        $course = Course::where('course_title', 'Intro to Unit Testing')->orderBy('course_id', 'DESC')->first();
+        $course = Course::where('course_title', 'Intro to Unit Testing')->orderByDesc('course_id')->first();
         $program = Program::where('program', 'Testing Program for Courses')->first();
 
         $response = $this->actingAs($user2)->delete(route('courses.destroy', $course->course_id));
