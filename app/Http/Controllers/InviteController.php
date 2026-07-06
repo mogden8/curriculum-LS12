@@ -66,9 +66,7 @@ class InviteController extends Controller implements HasMiddleware
 
     public function accept($token)
     {
-        if (! $invite = Invite::where('invitation_token', $token)->first()) {
-            abort(404);
-        }
+        abort_unless($invite = Invite::where('invitation_token', $token)->first(), 404);
         $invite->delete();
 
         return 'Your invitation was successfully accepted';

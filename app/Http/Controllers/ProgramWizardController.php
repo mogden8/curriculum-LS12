@@ -81,8 +81,8 @@ class ProgramWizardController extends Controller implements HasMiddleware
     $plos = ProgramLearningOutcome::query()
         ->select(['pl_outcome_id','plo_category_id','position','plo_shortphrase','pl_outcome'])
         ->where('program_id', $program_id)
-        ->orderBy('plo_category_id','asc')
-        ->orderBy('position','asc')
+        ->orderBy('plo_category_id')
+        ->orderBy('position')
         ->get();
 
     $ploCategories = PLOCategory::query()
@@ -94,15 +94,15 @@ class ProgramWizardController extends Controller implements HasMiddleware
         ->select(['pl_outcome_id','plo_category_id','position','plo_shortphrase','pl_outcome'])
         ->where('program_id', $program_id)
         ->whereNotNull('plo_category_id')
-        ->orderBy('plo_category_id','asc')
-        ->orderBy('position','asc')
+        ->orderBy('plo_category_id')
+        ->orderBy('position')
         ->get();
 
     $unCategorizedPLOS = ProgramLearningOutcome::query()
         ->select(['pl_outcome_id','plo_shortphrase','pl_outcome'])
         ->where('program_id', $program_id)
         ->whereNull('plo_category_id')
-        ->orderBy('position','asc')
+        ->orderBy('position')
         ->get();
 
     $hasUncategorized = $unCategorizedPLOS->isNotEmpty();
@@ -360,7 +360,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
         // get the program
         $program = Program::where('program_id', $program_id)->first();
         // get all the courses that belong to this program
-        $programCourses = $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $programCourses = $program->courses()->orderBy('course_code')->orderBy('course_num')->get();
 
         // get ids of all the courses that belong to this program
         $programCourseIds = $programCourses->map(function ($programCourse) {
@@ -368,7 +368,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
         });
 
         // get all courses that belong to this user that don't yet belong to this program
-        $userCoursesNotInProgram = $user->courses()->whereNotIn('courses.course_id', $programCourseIds)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $userCoursesNotInProgram = $user->courses()->whereNotIn('courses.course_id', $programCourseIds)->orderBy('course_code')->orderBy('course_num')->get();
 
         $programCoursesUsers = [];
         foreach ($programCourses as $programCourse) {
@@ -460,7 +460,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
             ->where('mapping_scale_programs.program_id', $program_id)->get();
 
         // get all the courses this program belongs to
-        $programCourses = $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $programCourses = $program->courses()->orderBy('course_code')->orderBy('course_num')->get();
 
         // All Learning Outcomes for program courses
         $LearningOutcomesForProgramCourses = [];
@@ -545,7 +545,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
             $programMappingScalesColours[$i] = (strtolower(MappingScale::where('map_scale_id', $programMappingScalesIds[$i])->pluck('colour')->first()) == '#ffffff' || strtolower(MappingScale::where('map_scale_id', $programMappingScalesIds[$i])->pluck('colour')->first()) == '#fff' ? '#6c757d' : MappingScale::where('map_scale_id', $programMappingScalesIds[$i])->pluck('colour')->first());
         }
         // get categorized plo's for the program (ordered by category then outcome id)
-        $plos_order = ProgramLearningOutcome::where('program_id', $program_id)->whereNotNull('plo_category_id')->orderBy('plo_category_id', 'ASC')->orderBy('pl_outcome_id', 'ASC')->get();
+        $plos_order = ProgramLearningOutcome::where('program_id', $program_id)->whereNotNull('plo_category_id')->orderBy('plo_category_id')->orderBy('pl_outcome_id')->get();
         // get UnCategorized PLO's
         $uncatPLOS = ProgramLearningOutcome::where('program_id', $program_id)->whereNull('plo_category_id')->get();
         // Merge Categorized PLOs and Uncategorized PLOs
@@ -744,7 +744,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     {
         $program = Program::where('program_id', $program_id)->first();
         // get all the courses this program belongs to
-        $programCourses = $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $programCourses = $program->courses()->orderBy('course_code')->orderBy('course_num')->get();
 
         $tempOptionalPriorities = [];
         foreach ($programCourses as $programCourse) {
@@ -782,7 +782,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
 
     public function getOptionalPrioritiesFirstYear($program_id): JsonResponse
     {
-        $firstYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $firstYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($firstYearProgramCourses as $firstYearProgramCourse) {
             if ($firstYearProgramCourse->course_num[0] != '1') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -827,7 +827,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
 
     public function getOptionalPrioritiesSecondYear($program_id): JsonResponse
     {
-        $secondYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $secondYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($secondYearProgramCourses as $secondYearProgramCourse) {
             if ($secondYearProgramCourse->course_num[0] != '2') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -872,7 +872,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
 
     public function getOptionalPrioritiesThirdYear($program_id): JsonResponse
     {
-        $thirdYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $thirdYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($thirdYearProgramCourses as $thirdYearProgramCourse) {
             if ($thirdYearProgramCourse->course_num[0] != '3') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -917,7 +917,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
 
     public function getOptionalPrioritiesFourthYear($program_id): JsonResponse
     {
-        $fourthYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $fourthYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($fourthYearProgramCourses as $fourthYearProgramCourse) {
             if ($fourthYearProgramCourse->course_num[0] != '4') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -962,7 +962,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
 
     public function getOptionalPrioritiesGraduate($program_id): JsonResponse
     {
-        $graduateProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $graduateProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($graduateProgramCourses as $graduateProgramCourse) {
             if ($graduateProgramCourse->course_num[0] != '5' || $graduateProgramCourse->course_num[0] != '6') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -1777,7 +1777,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
         $program = Program::find($program_id);
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
         // get all the courses this program belongs to
-        $programCourses = $program->courses()->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $programCourses = $program->courses()->orderBy('course_code')->orderBy('course_num')->get();
         // get all categories for program
         $ploCategories = PLOCategory::where('program_id', $program_id)->get();
         // get plo categories for program
@@ -1813,7 +1813,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
         // get all of the required courses this program belongs to
-        $requiredProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->where('course_programs.course_required', 1)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $requiredProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->where('course_programs.course_required', 1)->orderBy('course_code')->orderBy('course_num')->get();
         // get all categories for program
         $ploCategories = PLOCategory::where('program_id', $program_id)->get();
         // get plo categories for program
@@ -1849,7 +1849,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
         // get all of the non-required courses this program belongs to
-        $nonRequiredProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->where('course_programs.course_required', 0)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $nonRequiredProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->where('course_programs.course_required', 0)->orderBy('course_code')->orderBy('course_num')->get();
         // get all categories for program
         $ploCategories = PLOCategory::where('program_id', $program_id)->get();
         // get plo categories for program
@@ -1884,7 +1884,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     public function getFirstCourses($program_id): JsonResponse
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
-        $firstYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $firstYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($firstYearProgramCourses as $firstYearProgramCourse) {
             if ($firstYearProgramCourse->course_num[0] != '1') {           // if the first number in course_num is not 1 then remove it from the collection
@@ -1926,7 +1926,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     public function getSecondCourses($program_id): JsonResponse
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
-        $secondYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $secondYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($secondYearProgramCourses as $secondYearProgramCourse) {
             if ($secondYearProgramCourse->course_num[0] != '2') {           // if the first number in course_num is not 2 then remove it from the collection
@@ -1968,7 +1968,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     public function getThirdCourses($program_id): JsonResponse
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
-        $thirdYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $thirdYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($thirdYearProgramCourses as $thirdYearProgramCourse) {
             if ($thirdYearProgramCourse->course_num[0] != '3') {           // if the first number in course_num is not 3 then remove it from the collection
@@ -2010,7 +2010,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     public function getFourthCourses($program_id): JsonResponse
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
-        $fourthYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $fourthYearProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($fourthYearProgramCourses as $fourthYearProgramCourse) {
             if ($fourthYearProgramCourse->course_num[0] != '4') {           // if the first number in course_num is not 3 then remove it from the collection
@@ -2052,7 +2052,7 @@ class ProgramWizardController extends Controller implements HasMiddleware
     public function getGraduateCourses($program_id): JsonResponse
     {
         $ploCount = ProgramLearningOutcome::where('program_id', $program_id)->count();
-        $graduateProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code', 'asc')->orderBy('course_num', 'asc')->get();
+        $graduateProgramCourses = Course::join('course_programs', 'courses.course_id', '=', 'course_programs.course_id')->where('course_programs.program_id', $program_id)->orderBy('course_code')->orderBy('course_num')->get();
         $count = 0;
         foreach ($graduateProgramCourses as $graduateProgramCourse) {
             if ($graduateProgramCourse->course_num[0] != '5' && $graduateProgramCourse->course_num[0] != '6') {           // if the first number in course_num is not 5 or 6 then remove it from the collection

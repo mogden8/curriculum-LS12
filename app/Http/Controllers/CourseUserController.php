@@ -9,7 +9,7 @@ use App\Mail\NotifyNewInstructorMail;
 use App\Models\Course;
 use App\Models\CourseUser;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

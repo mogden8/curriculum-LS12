@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\syllabus\Syllabus;
 use App\Models\syllabus\SyllabusUser;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
@@ -75,7 +75,7 @@ class SyllabiTest extends TestCase
         ]
         );
 
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
 
         $this->assertDatabaseHas('syllabi', [
             'id' => $syllabus->id,
@@ -89,7 +89,7 @@ class SyllabiTest extends TestCase
         \Illuminate\Support\Facades\Mail::fake();
 
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
 
         // Clear any existing relationships
         DB::table('syllabi_users')->where('syllabus_id', $syllabus->id)->delete();
@@ -147,7 +147,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_transfer(): void
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
         $user2 = User::where('email', 'test-syllabi-collab@ubc.ca')->first();
 
         // Ensure initial ownership is set correctly
@@ -189,7 +189,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_remove_collab(): void
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
         $user2 = User::where('email', 'test-syllabi-collab@ubc.ca')->first();
         $syllabusUser = SyllabusUser::where('user_id', $user->id)->first();
         // $syllabusUser2 = SyllabusUser::where('user_id',$user->id)->first();
@@ -207,7 +207,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_download()
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
         $response = $this->actingAs($user)->get(route('syllabus.download', $syllabus->id, 'word'))->assertStatus(200);
 
     }
@@ -215,7 +215,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_duplicate()
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
 
         $response = $this->actingAs($user)->post(route('syllabus.duplicate', $syllabus->id), [
             '_method' => 'GET',
@@ -235,7 +235,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_leave(): void
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
         $user3 = User::where('email', 'test-syllabi-collab-leave@ubc.ca')->first();
 
         $response = $this->actingAs($user)->post(route('syllabusUser.leave'), [
@@ -252,7 +252,7 @@ class SyllabiTest extends TestCase
     public function test_syllabus_delete(): void
     {
         $user = User::where('email', 'test-syllabi@ubc.ca')->first();
-        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderBy('id', 'DESC')->first();
+        $syllabus = Syllabus::where('course_title', 'Intro to Greatness')->orderByDesc('id')->first();
 
         $response = $this->actingAs($user)->delete(route('syllabus.delete', $syllabus->id));
 

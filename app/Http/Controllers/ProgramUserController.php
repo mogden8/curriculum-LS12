@@ -8,7 +8,7 @@ use App\Mail\NotifyProgramOwnerMail;
 use App\Models\Program;
 use App\Models\ProgramUser;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

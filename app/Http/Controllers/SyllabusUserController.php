@@ -8,7 +8,7 @@ use App\Mail\NotifySyllabusUserOwnerMail;
 use App\Models\syllabus\Syllabus;
 use App\Models\syllabus\SyllabusUser;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
