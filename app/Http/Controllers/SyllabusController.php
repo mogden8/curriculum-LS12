@@ -19,7 +19,7 @@ use App\Models\syllabus\VancouverSyllabusResource;
 use App\Models\SyllabusInstructor;
 use App\Models\SyllabusProgram;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;

@@ -34,8 +34,8 @@ class TransferOldCourse_Users extends Seeder
                     'course_id' => $courseId,
                     'user_id' => key($courseUsers),
                     'permission' => 1,
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Illuminate\Support\Carbon::now(),
+                    'updated_at' => \Illuminate\Support\Carbon::now(),
                 ]);
                 // There exists more than one user for a course
             } else {
@@ -70,8 +70,8 @@ class TransferOldCourse_Users extends Seeder
                             'course_id' => $courseId,
                             'user_id' => $ownerId,
                             'permission' => 1,
-                            'created_at' => \Carbon\Carbon::now(),
-                            'updated_at' => \Carbon\Carbon::now(),
+                            'created_at' => \Illuminate\Support\Carbon::now(),
+                            'updated_at' => \Illuminate\Support\Carbon::now(),
                         ]);
 
                         // insert each non owner
@@ -81,8 +81,8 @@ class TransferOldCourse_Users extends Seeder
                                     'course_id' => $courseId,
                                     'user_id' => $userId,
                                     'permission' => 2,
-                                    'created_at' => \Carbon\Carbon::now(),
-                                    'updated_at' => \Carbon\Carbon::now(),
+                                    'created_at' => \Illuminate\Support\Carbon::now(),
+                                    'updated_at' => \Illuminate\Support\Carbon::now(),
                                 ]);
                             }
                         }
@@ -111,8 +111,8 @@ class TransferOldCourse_Users extends Seeder
                             'course_id' => $courseId,
                             'user_id' => $ownerId,
                             'permission' => 1,
-                            'created_at' => \Carbon\Carbon::now(),
-                            'updated_at' => \Carbon\Carbon::now(),
+                            'created_at' => \Illuminate\Support\Carbon::now(),
+                            'updated_at' => \Illuminate\Support\Carbon::now(),
                         ]);
                         // step 3: store all other users as editors
                         // insert each non owner
@@ -122,8 +122,8 @@ class TransferOldCourse_Users extends Seeder
                                     'course_id' => $courseId,
                                     'user_id' => $userId,
                                     'permission' => 2,
-                                    'created_at' => \Carbon\Carbon::now(),
-                                    'updated_at' => \Carbon\Carbon::now(),
+                                    'created_at' => \Illuminate\Support\Carbon::now(),
+                                    'updated_at' => \Illuminate\Support\Carbon::now(),
                                 ]);
                             }
                         }
@@ -139,8 +139,8 @@ class TransferOldCourse_Users extends Seeder
                                 'course_id' => $courseId,
                                 'user_id' => $userId,
                                 'permission' => 1,
-                                'created_at' => \Carbon\Carbon::now(),
-                                'updated_at' => \Carbon\Carbon::now(),
+                                'created_at' => \Illuminate\Support\Carbon::now(),
+                                'updated_at' => \Illuminate\Support\Carbon::now(),
                             ]);
                             $isFirstUser = false;
                         } else {
@@ -148,8 +148,8 @@ class TransferOldCourse_Users extends Seeder
                                 'course_id' => $courseId,
                                 'user_id' => $userId,
                                 'permission' => 2,
-                                'created_at' => \Carbon\Carbon::now(),
-                                'updated_at' => \Carbon\Carbon::now(),
+                                'created_at' => \Illuminate\Support\Carbon::now(),
+                                'updated_at' => \Illuminate\Support\Carbon::now(),
                             ]);
                         }
                     }

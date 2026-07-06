@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\syllabus\Syllabus;
 use App\Models\syllabus\SyllabusUser;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
