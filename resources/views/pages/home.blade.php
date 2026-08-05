@@ -50,7 +50,7 @@
                         @include('layouts.guide')
 
                         <div style="float:right;">
-                            <button style="border: none; background: none; outline: none;" data-bs-toggle="modal" data-bs-target="#createProgramModal" onclick="verification()">
+                            <button style="border: none; background: none; outline: none;" data-bs-toggle="modal" data-bs-target="#createProgramModal">
                                 <i class="bi bi-plus-circle text-white"></i>
                             </button>
                         </div>
@@ -1251,8 +1251,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         const toastEl = document.getElementById('notification');
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
 
         // Show notification if user is using a browser that's not either firefox chrome
         // Chrome 1 - 79
