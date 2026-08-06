@@ -3,6 +3,7 @@
 @section('content')
 
 <!-- start of add plo category modal -->
+<div class="step1-page">
 <div id="addPLOCategoryModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="addPLOCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content "  >
@@ -471,6 +472,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script type="text/javascript">
