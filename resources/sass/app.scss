@@ -30,6 +30,12 @@
     color: red !important;
 }
 
+.alert-primary {
+   background-color: #d6e9f8 !important;
+   border-color: #c6e0f5 !important;
+   color: #1b4b72 !important;
+}
+
 
 // ─── Navbar ───────────────────────────────────────────
 .dropdown-menu .dropdown-item {
@@ -229,6 +235,30 @@
     border-color: rgb(161, 203, 239) !important;
     box-shadow: none !important;
     outline: none !important;
+}
+
+// ─── Home Page ───────────────────────────────────────────
+
+
+.home-page .dropdown-item.text-danger {
+   color: $red !important;
+}
+
+
+.home-page .accordion-button {
+   background-color: rgb(231, 241, 255) !important;
+   color: rgb(12, 99, 228) !important;
+  
+}
+
+
+.home-page td a {
+   color: #0055B7 !important;
+   text-decoration: none;
+   &:hover {
+       color: rgb(47, 93, 124) !important;
+       text-decoration: underline;
+   }
 }
 
 
