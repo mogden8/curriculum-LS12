@@ -1,4 +1,4 @@
-
+<div class="header">
 <div class="mt-4 mb-5">
     <div class="row">
         <div class="col">
@@ -259,6 +259,7 @@
                 <td>Program Overview</td>
             </tr>
         </table>
+    </div>
     </div>
     @endif
 

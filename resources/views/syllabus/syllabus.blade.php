@@ -2786,7 +2786,7 @@
             <label for="landAcknowledgement"><h5 class="fw-bold">Land Acknowledgement</h5></label>
             <br>
             <div class="col-12">
-                <blockquote> We respectfully acknowledge the Syilx Okanagan Nation and their peoples, in whose traditional, ancestral, unceded territory UBC Okanagan is situated.</blockquote>
+                <blockquote class="land-acknowledgement"> We respectfully acknowledge the Syilx Okanagan Nation and their peoples, in whose traditional, ancestral, unceded territory UBC Okanagan is situated.</blockquote>
                 <div class="col-6">
                 @if(!empty($syllabus))
                     @if($syllabus->land_acknow)

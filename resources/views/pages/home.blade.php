@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<div class="home-page">
 <!-- Browser Notification -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastPlacement" style="z-index: 11">
     <div id="browser-notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
@@ -1245,6 +1245,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 <!-- End Create Course Modal -->
 

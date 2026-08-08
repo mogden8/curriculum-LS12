@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		if (Collapse) {
-			document.querySelectorAll('.collapse').forEach(el => {
-				if (!Collapse.getInstance(el)) new Collapse(el);
-			});
-		}
+            document.querySelectorAll('.collapse').forEach(el => {
+                if (!Collapse.getInstance(el)) new Collapse(el, { toggle: false });
+            });
+            }
 
 		if (Dropdown) {
 			document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(el => {
