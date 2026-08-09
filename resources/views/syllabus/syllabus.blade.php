@@ -2821,7 +2821,7 @@
 
             <label for="statementUBCValues"><h5 class="fw-bold">Statement of UBC Values</h5></label><span class="requiredBySenateOK"></span>
             <br>
-            <div class="col-12">
+            <div class="col-12 statementUBCValues">
                 <blockquote> UBC creates an exceptional learning environment that fosters global citizenship, advances a civil and sustainable society, and supports outstanding research to serve the people of British Columbia, Canada, and the world. UBC's core values are excellence, integrity, respect, academic freedom, and accountability.</blockquote>
             </div>
             `;
@@ -2830,7 +2830,7 @@
 
             <label for="statementStudentSupport"><h5 class="fw-bold">Statement regarding Resources to Support Student Success</h5></label><span class="requiredBySenateOK"></span>
             <br>
-            <div class="col-12">
+            <div class="col-12 statementStudentSupport">
                 <blockquote> Visit <a href="https://students.ok.ubc.ca/support/"> the Student Support and Resources page</a> to find one-on-one help or explore resources to support your experience at UBC Okanagan, as well as many other campus services available to all students. </blockquote>
             </div>
             `;
@@ -2839,7 +2839,7 @@
 
             <label for="policiesAndRegulations"><h5 class="fw-bold">Statement on Policies and Regulations</h5></label><span class="requiredBySenateOK"></span>
             <br>
-            <div class="col-12">
+            <div class="col-12 policiesAndRegulations">
                 <blockquote> Visit <a href="https://okanagan.calendar.ubc.ca/campus-wide-policies-and-regulations">UBC Okanagan's Academic Calendar</a> for a list of campus-wide regulations and policies, as well as term <a href="https://okanagan.calendar.ubc.ca/dates-and-deadlines">dates and deadlines</a>.</blockquote>
             </div>
             `;

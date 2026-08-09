@@ -49,6 +49,10 @@
     }
 }
 
+.syllabus-page .bi-question-circle-fill {
+  color: #40B4E5 !important;  
+}
+
 
 // ─── Navbar ───────────────────────────────────────────
 .dropdown-menu .dropdown-item {
@@ -334,6 +338,12 @@
     }
 }
 
+.table.table-light.borderless thead tr.table-primary th {
+    background-color: #c6e0f5 !important;
+    border-bottom: 2.5px solid #002145 !important;
+}
+
+
 .syllabus-page .alert-primary {
     color: #1b4b72;
     background-color: #d6e9f8;
@@ -396,6 +406,36 @@
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
 }
+
+.policiesAndRegulations {
+  border-left: 2.5px solid #52575dcc !important;
+  padding-left: 1rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.statementUBCValues {
+  border-left: 2.5px solid #52575dcc !important;
+  padding-left: 1rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.statementStudentSupport {
+  border-left: 2.5px solid #52575dcc !important;
+  padding-left: 1rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.policiesAndRegulations blockquote,
+.statementUBCValues blockquote,
+.statementStudentSupport blockquote {
+  margin: 0 !important;
+  padding-left: 1.5rem !important;
+  padding-right: 0 !important;
+}
+
 
 
 // ─── Step 1 Page ───────────────────────────────────────────

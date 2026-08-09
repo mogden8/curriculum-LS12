@@ -159,7 +159,7 @@
                 @endif
             </div>
 
-            <form method="POST" id="saveProgramCollabChanges{{$program->program_id}}" action="{{ action([\App\Http\Controllers\ProgramUserController::class, 'store'], ['programId' => $program->program_id]) }}">
+            <form method="POST" id="saveProgramCollabChanges{{$program->program_id}}" action="{{ route('programUser.add', ['programId' => $program->program_id]) }}">
                 @csrf
                 <input type="hidden" class="form-check-input " name="program_id" value={{$program->program_id}}>
                 <div class="modal-footer">

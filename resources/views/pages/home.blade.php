@@ -95,7 +95,7 @@
                                         @if($programCourseCount > 0)
                                             <div class="bg-transparent position-relative pe-2 ps-2" data-bs-toggle="tooltip" data-html="true" title="@foreach($programCourses as $i => $programCourse){{$i + 1}}. {{$programCourse->course_title}}<br>@endforeach" data-bs-placement="right">
                                                 <i class="bi bi-journal-text" style="font-size:x-large; text-align:center;"></i>
-                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge badge-dark">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                                                     {{ $programCourseCount }}
                                                 </span>
                                             </div>
@@ -121,7 +121,7 @@
                                             <div>
                                                 Collaborators
                                                 <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                <span class="badge rounded-pill badge badge-dark">
+                                                <span class="badge rounded-pill bg-dark">
                                                     {{ count($programUsers[$program->program_id]) }}
                                                 </span>
                                             </div>
@@ -229,7 +229,7 @@
                                         @if($programCourseCount > 0)
                                             <div class="bg-transparent position-relative pe-2 ps-2" data-bs-toggle="tooltip" data-html="true" title="@foreach($programCourses as $i => $programCourse){{$i + 1}}. {{$programCourse->course_title}}<br>@endforeach" data-bs-placement="right">
                                                 <i class="bi bi-journal-text" style="font-size:x-large; text-align:center;"></i>
-                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge badge-dark">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                                                     {{ $programCourseCount }}
                                                 </span>
                                             </div>
@@ -255,7 +255,7 @@
                                             <div>
                                                 Collaborators
                                                 <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                <span class="badge rounded-pill badge badge-dark">
+                                                <span class="badge rounded-pill bg-dark">
                                                     {{ count($programUsers[$program->program_id]) }}
                                                 </span>
                                             </div>
@@ -335,7 +335,7 @@
                                         @if($programCourseCount > 0)
                                             <div class="bg-transparent position-relative pe-2 ps-2" data-bs-toggle="tooltip" data-html="true" title="@foreach($programCourses as $i => $programCourse){{$i + 1}}. {{$programCourse->course_title}}<br>@endforeach" data-bs-placement="right">
                                                 <i class="bi bi-journal-text" style="font-size:x-large; text-align:center;"></i>
-                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge badge-dark">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                                                     {{ $programCourseCount }}
                                                 </span>
                                             </div>
@@ -360,7 +360,7 @@
                                             <div>
                                                 Collaborators
                                                 <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                <span class="badge rounded-pill badge badge-dark">
+                                                <span class="badge rounded-pill bg-dark">
                                                     {{ count($programUsers[$program->program_id]) }}
                                                 </span>
                                             </div>
@@ -670,7 +670,7 @@
                                                     <div>
                                                         Collaborators
                                                         <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                        <span class="badge rounded-pill badge badge-dark">
+                                                        <span class="badge rounded-pill bg-dark">
                                                             {{ count($syllabiUsers[$syllabus->id]) }}
                                                         </span>
                                                     </div>
@@ -815,7 +815,7 @@
                                                     <div>
                                                         Collaborators
                                                         <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                        <span class="badge rounded-pill badge badge-dark">
+                                                        <span class="badge rounded-pill bg-dark">
                                                             {{ count($syllabiUsers[$syllabus->id]) }}
                                                         </span>
                                                     </div>
@@ -930,7 +930,7 @@
                                                     <div>
                                                         Collaborators
                                                         <!-- <i class="bi bi-person-plus-fill"></i> -->
-                                                        <span class="badge rounded-pill badge badge-dark">
+                                                        <span class="badge rounded-pill bg-dark">
                                                             {{ count($syllabiUsers[$syllabus->id]) }}
                                                         </span>
                                                     </div>

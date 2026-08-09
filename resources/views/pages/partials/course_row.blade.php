@@ -40,7 +40,7 @@
                 @if(count($coursesPrograms[$course->course_id]) > 0)
                     <div class="bg-transparent position-relative pe-2 ps-2" data-bs-toggle="tooltip" data-html="true" title="@foreach($coursesPrograms[$course->course_id] as $i => $courseProgram){{$i + 1}}. {{$courseProgram->program}}<br>@endforeach" data-bs-placement="right">
                         <i class="bi bi-map" style="font-size:x-large; text-align:center;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge badge-dark">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                             {{ count($coursesPrograms[$course->course_id]) }}
                         </span>
                     </div>
@@ -94,7 +94,7 @@
                 @if(count($coursesPrograms[$course->course_id]) > 0)
                     <div class="bg-transparent position-relative pe-2 ps-2" data-bs-toggle="tooltip" data-html="true" title="@foreach($coursesPrograms[$course->course_id] as $i => $courseProgram){{$i + 1}}. {{$courseProgram->program}}<br>@endforeach" data-bs-placement="right">
                         <i class="bi bi-map" style="font-size:x-large; text-align:center;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge badge-dark">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                             {{ count($coursesPrograms[$course->course_id]) }}
                         </span>
                     </div>
@@ -117,7 +117,7 @@
             <a class="dropdown-item" href="{{route('courseWizard.step1', $course->course_id)}}">Edit</a>
             <div class="dropdown-item collabIcon" style="cursor: pointer;" data-bs-toggle="tooltip" data-html="true" data-bs-placement="right" title="@foreach($courseUsers[$course->course_id] as $counter => $courseUser){{$counter + 1}}. {{$courseUser->name}}<br>@endforeach" data-modal="addCourseCollaboratorsModal{{$course->course_id}}">
                 Collaborators
-                <span class="badge rounded-pill badge badge-dark">
+                <span class="badge rounded-pill bg-dark">
                     {{ count($courseUsers[$course->course_id]) }}
                 </span>
             </div>
