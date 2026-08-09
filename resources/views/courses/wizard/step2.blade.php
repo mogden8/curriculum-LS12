@@ -4,6 +4,7 @@
 
 <div>
     @include('courses.wizard.header')
+    <div class="step2-page">
     <div id="app">
         <div class="home">
             <div class="card" style="position:static">
@@ -253,6 +254,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

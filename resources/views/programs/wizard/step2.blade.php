@@ -33,7 +33,7 @@
 
                     <div class="d-flex justify-content-end">
                                 <!-- Show default mapping scale button  -->
-                                <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target=".mapping-scales" style="background-color:#002145; color:white;">Show Default Mapping Scales</button>
+                                <button type="button" class="btn btn-primary btn-sm m-1 default-mapping-btn" data-bs-toggle="modal" data-bs-target=".mapping-scales">Show Default Mapping Scales</button>
                                 <button type="button" class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#addMSModal">
                                     <i class="bi bi-plus pe-2"></i>My Own Mapping Scale Level
                                 </button>
