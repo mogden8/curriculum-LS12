@@ -459,6 +459,26 @@
     }
 }
 
+/* Target table header cells that use .table-secondary (e.g., "My Programs", "My Courses") */
+th.table-secondary {
+    position: relative;
+    color: #000 !important;
+    border-bottom: 0 !important;
+    padding: 0.75rem 1rem !important;
+}
+th.table-secondary::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0px;
+    height: 2px;
+    background: #123000;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-radius: 0;
+}
+
 .header .btn-success {
   &:hover {
     background-color: #2c893ddc !important;
@@ -501,4 +521,47 @@
   background-color: #002145 !important;
   border-color: #002145 !important;
   color: white !important;
+}
+
+.step2-page .modal-footer a {
+    color: #0055B7 !important;
+    text-decoration: none;
+    &:hover {
+        color: rgb(47, 93, 124) !important;
+        text-decoration: underline;
+    }
+}
+
+/* Mapping Scales table: header with dark top bar and white row separators */
+.table.table-light.table-bordered {
+    border: none !important; /* remove outer table border */
+    border-collapse: separate !important;
+}
+
+.table.table-light.table-bordered th,
+.table.table-light.table-bordered td {
+    border: none !important; /* reset cell borders */
+}
+
+.table.table-light.table-bordered tr.table-primary th {
+    background-color: #c6e0f5 !important;
+    color: #002145 !important;
+    position: relative;
+}
+
+/* dark top bar */
+.table.table-light.table-bordered tr.table-primary th::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 0.5px;
+    background: #b5d0e7;
+}
+
+/* white horizontal separators between rows */
+.table.table-light.table-bordered tbody tr td {
+    border-top: 1px solid #ffffff !important;
+    background-color: #ffff !important;
 }
