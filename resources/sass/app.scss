@@ -356,6 +356,33 @@
     border-color: #ffecb5;
 }
 
+/* Global alert-warning override to ensure consistent yellow used across pages */
+.alert-warning {
+    color: #664d03 !important;
+    background-color: #FFF3CD !important;
+    border-color: #FFECB5 !important;
+    text-align: center !important;
+}
+
+/* Scoped spacing for Program Learning Outcomes alert only */
+#nav-plo .alert.alert-warning {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2 rem !important;
+}
+
+#nav-plo .alert.alert-warning .bi,
+#nav-plo .alert.alert-warning i,
+#nav-plo .alert.alert-warning .fa {
+    margin-right: 0.5rem !important;
+    vertical-align: middle !important;
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+}
+
+
+
 
 .syllabus-page .btn-light.rounded-circle {
     background-color: #e6ebee68 !important;
@@ -564,4 +591,88 @@ th.table-secondary::after {
 .table.table-light.table-bordered tbody tr td {
     border-top: 1px solid #ffffff !important;
     background-color: #ffff !important;
+}
+
+// ─── Step 3 Page ───────────────────────────────────────────
+
+
+.step3-page .card-body .alert .alert-link,
+.step3-page a.alert-link {
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+/* Style the Note line under the alert in Step 3 */
+.step3-page h6.card-subtitle.wizard {
+    color: #40b4e5 !important;
+}
+
+/* Ensure any list immediately after the Note has extra top gap */
+.step3-page h6.card-subtitle.wizard + ul {
+    margin-top: 2.5rem !important;
+}
+
+/* Step 3: make the two course action buttons dark blue */
+.step3-page button[data-bs-target="#addCourseModal"],
+.step3-page button[data-bs-target="#createCourseModal"] {
+    background-color: #002145 !important;
+    border-color: #002145 !important;
+}
+
+
+.step3-page #addCourseModal .modal-body table tr.table-primary td:first-child,
+.step3-page #addCourseModal .modal-body table tr.table-primary td:first-child + th {
+    background-color: #c6e0f5 !important;
+    border: none !important;
+}
+
+
+/* Make course table rows light grey */
+#courses table tr:not(.table-primary) td {
+    background-color: rgba(242, 243, 246, 0.915) !important;
+}
+
+/* Make rows in the Add Existing Course modal light grey */
+#addCourseModal table tbody tr:not(.table-primary) td {
+    background-color: rgba(242, 243, 246, 0.915) !important;
+}
+
+/* Step 3: Color change for go to course button */
+.step3-page .btn.btn-outline-primary {
+    color: #40b4e5 !important;
+    border-color: #40b4e5 !important;
+    &:hover {
+        background-color: #40b4e5 !important;
+        border-color: #40b4e5 !important;
+        color: #ffffff !important;
+    }
+}
+
+
+// ─── Step 4 Page ───────────────────────────────────────────
+
+/* Step 4 - Program Overview main tabs */
+.step4-page #nav-tab .nav-link {
+    color: #096efd !important;
+    background-color: #ffffff !important;
+    border-color: #dee2e6 !important;
+}
+
+.step4-page #nav-tab .nav-link.active {
+    color: #ffffff !important;
+    background-color: #002145 !important;
+    border-color: #002145 !important;
+}
+
+/* Step 4 - PLOs to CLOs inner tabs */
+.step4-page #nav-inner-charts-tab .nav-link.active {
+    color: #ffffff !important;
+}
+
+/* Step 4 - Mapping Scale table header */
+.step4-page .table-primary th {
+    background-color: #c6e0f5 !important;
+    border-color: #d9e4ee !important;
 }
