@@ -53,6 +53,23 @@
   color: #40B4E5 !important;  
 }
 
+.alert-warning {
+    color: #664d03 !important;
+    background-color: #FFF3CD !important;
+    border-color: #FFECB5 !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin-right: 0.25rem !important;
+}
+
+/* Aligning each of the card headers for program steps 1-4 */
+.card-header {
+    text-align: center !important;
+    padding: 1.25rem !important;
+}
 
 // ─── Navbar ───────────────────────────────────────────
 .dropdown-menu .dropdown-item {
@@ -349,39 +366,6 @@
     background-color: #d6e9f8;
     border-color: #c6e0f5;
 }
- 
-.syllabus-page .alert-warning {
-    color: #664d03;
-    background-color: #fff3cd;
-    border-color: #ffecb5;
-}
-
-/* Global alert-warning override to ensure consistent yellow used across pages */
-.alert-warning {
-    color: #664d03 !important;
-    background-color: #FFF3CD !important;
-    border-color: #FFECB5 !important;
-    text-align: center !important;
-}
-
-/* Scoped spacing for Program Learning Outcomes alert only */
-#nav-plo .alert.alert-warning {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 2 rem !important;
-}
-
-#nav-plo .alert.alert-warning .bi,
-#nav-plo .alert.alert-warning i,
-#nav-plo .alert.alert-warning .fa {
-    margin-right: 0.5rem !important;
-    vertical-align: middle !important;
-    font-size: 1.25rem !important;
-    line-height: 1 !important;
-}
-
-
 
 
 .syllabus-page .btn-light.rounded-circle {
@@ -542,12 +526,35 @@ th.table-secondary::after {
     border-color: #2c8eb8  !important;
 }
 
-
+/* Scoped icon spacing and vertical centering for Step 1 and Step 4 alerts */
+.step1-page .alert.alert-warning,
+.step4-page .alert.alert-warning {
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    text-align: center !important;
+}
+.step1-page .alert.alert-warning .bi,
+.step1-page .alert.alert-warning i,
+.step1-page .alert.alert-warning .fa,
+.step4-page .alert.alert-warning .bi,
+.step4-page .alert.alert-warning i,
+.step4-page .alert.alert-warning .fa {
+    margin-right: 0.25rem !important;
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+}
 // ─── Step 2 Page ───────────────────────────────────────────
 .default-mapping-btn {
   background-color: #002145 !important;
   border-color: #002145 !important;
   color: white !important;
+  &:hover {
+    background-color: #002145 !important;
+    border-color: #002145 !important;
+    color: white !important;
+  }
 }
 
 .step2-page .modal-footer a {
@@ -598,6 +605,7 @@ th.table-secondary::after {
 
 .step3-page .card-body .alert .alert-link,
 .step3-page a.alert-link {
+    color: #113049 !important;
     text-decoration: none !important;
     &:hover {
         text-decoration: underline !important;
@@ -676,3 +684,13 @@ th.table-secondary::after {
     background-color: #c6e0f5 !important;
     border-color: #d9e4ee !important;
 }
+
+/* Step 4: Program Overview alert */
+// .step4-page .alert.alert-warning {
+//   display: flex !important;
+//   align-items: baseline !important;
+//   justify-content: center !important;
+//   gap: 0.5rem !important;
+//   margin-right: 0.25rem !important;
+//   text-align: center !important;
+// }
