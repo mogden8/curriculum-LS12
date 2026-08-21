@@ -449,9 +449,9 @@
 
 
 
-// ─── Step 1 Page ───────────────────────────────────────────
+// ─── Program Step 1 Page ───────────────────────────────────────────
 
-.step1-page a {
+.program-step1-page a {
     color: #0055B7 !important;
     text-decoration: none;
     &:hover {
@@ -520,32 +520,32 @@ th.table-secondary::after {
     }
 }
 
-.step1-page .btn.bg-primary.text-white:hover,
-.step1-page .btn.bg-primary.text-white:focus {
+.program-step1-page .btn.bg-primary.text-white:hover,
+.program-step1-page .btn.bg-primary.text-white:focus {
     background-color: #2c8eb8  !important;
     border-color: #2c8eb8  !important;
 }
 
 /* Scoped icon spacing and vertical centering for Step 1 and Step 4 alerts */
-.step1-page .alert.alert-warning,
-.step4-page .alert.alert-warning {
+.program-step1-page .alert.alert-warning,
+.program-step4-page .alert.alert-warning {
     display: flex !important;
     align-items: baseline !important;
     justify-content: center !important;
     gap: 0.5rem !important;
     text-align: center !important;
 }
-.step1-page .alert.alert-warning .bi,
-.step1-page .alert.alert-warning i,
-.step1-page .alert.alert-warning .fa,
-.step4-page .alert.alert-warning .bi,
-.step4-page .alert.alert-warning i,
-.step4-page .alert.alert-warning .fa {
+.program-step1-page .alert.alert-warning .bi,
+.program-step1-page .alert.alert-warning i,
+.program-step1-page .alert.alert-warning .fa,
+.program-step4-page .alert.alert-warning .bi,
+.program-step4-page .alert.alert-warning i,
+.program-step4-page .alert.alert-warning .fa {
     margin-right: 0.25rem !important;
     font-size: 1.25rem !important;
     line-height: 1 !important;
 }
-// ─── Step 2 Page ───────────────────────────────────────────
+// ─── ProgramStep 2 Page ───────────────────────────────────────────
 .default-mapping-btn {
   background-color: #002145 !important;
   border-color: #002145 !important;
@@ -557,7 +557,7 @@ th.table-secondary::after {
   }
 }
 
-.step2-page .modal-footer a {
+.program-step2-page .modal-footer a {
     color: #0055B7 !important;
     text-decoration: none;
     &:hover {
@@ -600,11 +600,11 @@ th.table-secondary::after {
     background-color: #ffff !important;
 }
 
-// ─── Step 3 Page ───────────────────────────────────────────
+// ─── Program Step 3 Page ───────────────────────────────────────────
 
 
-.step3-page .card-body .alert .alert-link,
-.step3-page a.alert-link {
+.program-step3-page .card-body .alert .alert-link,
+.program-step3-page a.alert-link {
     color: #113049 !important;
     text-decoration: none !important;
     &:hover {
@@ -613,25 +613,25 @@ th.table-secondary::after {
 }
 
 /* Style the Note line under the alert in Step 3 */
-.step3-page h6.card-subtitle.wizard {
+.program-step3-page h6.card-subtitle.wizard {
     color: #40b4e5 !important;
 }
 
 /* Ensure any list immediately after the Note has extra top gap */
-.step3-page h6.card-subtitle.wizard + ul {
+.program-step3-page h6.card-subtitle.wizard + ul {
     margin-top: 2.5rem !important;
 }
 
 /* Step 3: make the two course action buttons dark blue */
-.step3-page button[data-bs-target="#addCourseModal"],
-.step3-page button[data-bs-target="#createCourseModal"] {
+.program-step3-page button[data-bs-target="#addCourseModal"],
+.program-step3-page button[data-bs-target="#createCourseModal"] {
     background-color: #002145 !important;
     border-color: #002145 !important;
 }
 
 
-.step3-page #addCourseModal .modal-body table tr.table-primary td:first-child,
-.step3-page #addCourseModal .modal-body table tr.table-primary td:first-child + th {
+.program-step3-page #addCourseModal .modal-body table tr.table-primary td:first-child,
+.program-step3-page #addCourseModal .modal-body table tr.table-primary td:first-child + th {
     background-color: #c6e0f5 !important;
     border: none !important;
 }
@@ -648,7 +648,7 @@ th.table-secondary::after {
 }
 
 /* Step 3: Color change for go to course button */
-.step3-page .btn.btn-outline-primary {
+.program-step3-page .btn.btn-outline-primary {
     color: #40b4e5 !important;
     border-color: #40b4e5 !important;
     &:hover {
@@ -659,38 +659,62 @@ th.table-secondary::after {
 }
 
 
-// ─── Step 4 Page ───────────────────────────────────────────
+// ─── Program Step 4 Page ───────────────────────────────────────────
 
 /* Step 4 - Program Overview main tabs */
-.step4-page #nav-tab .nav-link {
+.program-step4-page #nav-tab .nav-link {
     color: #096efd !important;
     background-color: #ffffff !important;
     border-color: #dee2e6 !important;
 }
 
-.step4-page #nav-tab .nav-link.active {
+.program-step4-page #nav-tab .nav-link.active {
     color: #ffffff !important;
     background-color: #002145 !important;
     border-color: #002145 !important;
 }
 
 /* Step 4 - PLOs to CLOs inner tabs */
-.step4-page #nav-inner-charts-tab .nav-link.active {
+.program-step4-page #nav-inner-charts-tab .nav-link.active {
     color: #ffffff !important;
 }
 
 /* Step 4 - Mapping Scale table header */
-.step4-page .table-primary th {
+.program-step4-page .table-primary th {
     background-color: #c6e0f5 !important;
     border-color: #d9e4ee !important;
 }
 
-/* Step 4: Program Overview alert */
-// .step4-page .alert.alert-warning {
-//   display: flex !important;
-//   align-items: baseline !important;
-//   justify-content: center !important;
-//   gap: 0.5rem !important;
-//   margin-right: 0.25rem !important;
-//   text-align: center !important;
-// }
+// ─── Course Step 1 Page ───────────────────────────────────────────
+
+.course-step1-page .alert-link {
+    color: #113049 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.course-step1-page a {
+    color: #0055B7 !important;
+    text-decoration: none;
+    &:hover {
+        color: rgb(47, 93, 124) !important;
+        text-decoration: underline;
+    }
+}
+
+.course-step1-page .btn.bg-primary {
+    &:hover {
+        background-color: #2c8eb8 !important;
+    }
+}
+
+/* Step 3: make the + CLO button turqoise */
+.course-step1-page button[data-bs-target="#addLearningOutcomeModal"]{
+    background-color: #002145 !important;
+    &:hover {
+        background-color: #40b4e5 !important;
+    }
+}
+

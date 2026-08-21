@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="step4-page">
+<div class="program-step4-page">
 <!-- Notification -->
 <div aria-live="polite" aria-atomic="true" class="position-relative">
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:11">

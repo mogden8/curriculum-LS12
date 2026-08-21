@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="step2-page">
+<div class="program-step2-page">
 <div>
     <div class="row justify-content-center">
         <div class="col-md-12">
