@@ -357,7 +357,7 @@
 
 .table.table-light.borderless thead tr.table-primary th {
     background-color: #c6e0f5 !important;
-    border-bottom: 2.5px solid #002145 !important;
+    border-bottom: 2px solid #002145 !important;
 }
 
 
@@ -602,7 +602,6 @@ th.table-secondary::after {
 
 // ─── Program Step 3 Page ───────────────────────────────────────────
 
-
 .program-step3-page .card-body .alert .alert-link,
 .program-step3-page a.alert-link {
     color: #113049 !important;
@@ -710,7 +709,7 @@ th.table-secondary::after {
     }
 }
 
-/* Step 3: make the + CLO button turqoise */
+/* Step 1: Make the + CLO button turqoise */
 .course-step1-page button[data-bs-target="#addLearningOutcomeModal"]{
     background-color: #002145 !important;
     &:hover {
@@ -718,3 +717,44 @@ th.table-secondary::after {
     }
 }
 
+// ─── Course Step 2 Page ───────────────────────────────────────────
+
+.course-step2-page .alert-link {
+    color: #113049 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+/* Step 2: make the + Student Assessment Methods button turqoise */
+.course-step2-page button[data-bs-target="#addAssessmentMethodModal"]{
+    background-color: #002145 !important;
+    &:hover {
+        background-color: #2c8eb8 !important;
+    }
+}
+
+.course-step2-page .btn-success {
+    &:hover {
+        background-color: #2c893ddc !important;
+        border-color: #277937dc !important;
+    }
+}
+
+/* Step 2 - Color change for table header */
+.course-step2-page .table-primary th {
+    background-color: #c6e0f5 !important;
+    border-color: #d9e4ee !important;
+    border-bottom: 2px solid #002145 !important;
+}
+
+.course-step2-page td .btn-secondary {
+    background-color: #6c757d !important;
+    border-color: #d9e4ee !important;
+    &:hover {
+        background-color: #596066 !important;
+        border-color: #596066 !important;
+    }
+    
+}
