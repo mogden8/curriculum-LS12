@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class LearningActivityController extends Controller implements HasMiddleware
@@ -46,10 +47,11 @@ class LearningActivityController extends Controller implements HasMiddleware
         // try update student assessment methods
         try {
             $courseId = $request->input('course_id');
-            $currentActivities = $request->input('current_l_activities');
-            $newActivities = $request->input('new_l_activities');
-            $currentPercentages = $request->input('current_l_activities_percentage');
-            $newPercentages = $request->input('new_l_activities_percentage');
+            // ensure arrays to avoid warnings when inputs are missing
+            $currentActivities = $request->input('current_l_activities') ?? [];
+            $newActivities = $request->input('new_l_activities') ?? [];
+            $currentPercentages = $request->input('current_l_activities_percentage') ?? [];
+            $newPercentages = $request->input('new_l_activities_percentage') ?? [];
 
             // get the course
             $course = Course::find($courseId);
@@ -103,7 +105,8 @@ class LearningActivityController extends Controller implements HasMiddleware
             $request->session()->flash('success', 'Your teaching and learning activities were updated successfully!');
 
         } catch (Throwable $exception) {
-            // flash error message if something goes wrong
+            // log exception for debugging and flash error message
+            Log::error('LearningActivityController@store exception', ['exception' => $exception]);
             $request->session()->flash('error', 'There was an error updating your teaching and learning activities');
 
         } finally {

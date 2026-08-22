@@ -3,6 +3,7 @@
 @section('content')
 <div>
     @include('courses.wizard.header')
+    <div class="course-step3-page">
     <div id="app">
         <div class="home">
 
@@ -232,6 +233,7 @@
             </div>
         </div>
    </div>
+</div>
 </div>
 
 <script>

@@ -758,3 +758,52 @@ th.table-secondary::after {
     }
     
 }
+
+// ─── Course Step 3 Page ───────────────────────────────────────────
+
+.course-step3-page .alert-link {
+    color: #113049 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+/* Step 3: make the + Learning Activities button turqoise */
+.course-step3-page button[data-bs-target="#addLearningActivitiesModal"]{
+    background-color: #002145 !important;
+    &:hover {
+        background-color: #2c8eb8 !important;
+    }
+}
+
+.course-step3-page .table-primary th {
+    background-color: #c6e0f5 !important;
+    border-color: #d9e4ee !important;
+}
+
+.course-step3-page .btn-success {
+    &:hover {
+        background-color: #2c893ddc !important;
+        border-color: #277937dc !important;
+    }
+}
+
+.course-step3-page .col-8 hr {
+    border-top: 2px solid currentColor !important;
+}
+
+
+// ─── Course Step 5 Page ───────────────────────────────────────────
+
+
+.course-step5-page .alert-warning {
+    font-family: Helvetica, Arial, sans-serif !important;
+}
+.course-step5-page .alert-link {
+    color: #523e02 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
