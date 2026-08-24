@@ -46,6 +46,13 @@ class LearningActivityController extends Controller implements HasMiddleware
     {
         // try update student assessment methods
         try {
+
+            // validate percentage inputs
+            $request->validate([
+                'current_l_activities_percentage.*' => 'nullable|integer|min:0|max:100',
+                'new_l_activities_percentage.*' => 'nullable|integer|min:0|max:100',
+            ]);
+
             $courseId = $request->input('course_id');
             // ensure arrays to avoid warnings when inputs are missing
             $currentActivities = $request->input('current_l_activities') ?? [];
