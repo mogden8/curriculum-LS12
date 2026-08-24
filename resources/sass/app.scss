@@ -874,7 +874,6 @@ th.table-secondary::after {
 }
 
 // Step 6: Adding grey to headers and card in the background
-
 .course-step6-page .p-5.mb-4.bg-light.rounded-3 {
     background-color: #e9ecef !important;
     padding-bottom: 4rem !important;
@@ -883,3 +882,41 @@ th.table-secondary::after {
 .course-step6-page .optionalPLO thead th {
     background-color: #e9ecef !important;
 }
+
+// ─── Course Step 7 Page ───────────────────────────────────────────
+
+.course-step7-page .alert-link {
+    color: #523e02 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.course-step7-page .table-secondary th {
+    color: #0055B7 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+        color: rgb(47, 93, 124) !important;
+    }
+}
+
+.course-step7-page .optionalPLO thead th {
+    background-color: #e9ecef !important;
+}
+
+.course-step7-page .text-primary {
+    color: #40B4E5 !important;
+}
+
+// .course-step7-page .table-primary,
+// .course-step7-page .table-primary th {
+//     background-color: #f8f0fa !important;
+   
+// }
+
+// .course-step7-page .table-secondary {
+//     background-color: #d6d8db !important;
+
+// }
