@@ -492,8 +492,8 @@ th.table-secondary::after {
 
 .header .btn-success {
   &:hover {
-    background-color: #2c893ddc !important;
-    border-color: #2c893ddc !important;
+    background-color: #198754 !important;
+    border-color: #198754 !important;
     }
 }
 
@@ -737,8 +737,8 @@ th.table-secondary::after {
 
 .course-step2-page .btn-success {
     &:hover {
-        background-color: #2c893ddc !important;
-        border-color: #277937dc !important;
+        background-color: #198754 !important;
+        border-color: #198754 !important;
     }
 }
 
@@ -784,8 +784,8 @@ th.table-secondary::after {
 
 .course-step3-page .btn-success {
     &:hover {
-        background-color: #2c893ddc !important;
-        border-color: #277937dc !important;
+        background-color: #198754 !important;
+        border-color: #198754 !important;
     }
 }
 
@@ -806,4 +806,68 @@ th.table-secondary::after {
     &:hover {
         text-decoration: underline !important;
     }
+}
+
+// ─── Course Step 6 Page ───────────────────────────────────────────
+
+.course-step6-page .card-body {
+    font-family: Helvetica, Arial, sans-serif !important;
+}
+
+/* Step 6 - Degree Standards and UBC Strategic Priorities Overview main tabs */
+.course-step6-page #nav-tab .nav-link {
+    color: #096efd !important;
+    background-color: #ffffff !important;
+    border-color: #dee2e6 !important;
+}
+
+.course-step6-page #nav-tab .nav-link.active {
+    color: #ffffff !important;
+    background-color: #002145 !important;
+    border-color: #002145 !important;
+}
+
+/* Step 6 - PLOs to CLOs inner tabs */
+.course-step6-page #nav-inner-charts-tab .nav-link.active {
+    color: #ffffff !important;
+}
+
+.course-step6-page .alert-link {
+    color: #113049 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.course-step6-page .btn-success {
+    &:hover {
+        background-color: #198754 !important;
+        border-color: #198754 !important;
+    }
+}
+
+.course-step6-page .text-primary {
+    color: #40B4E5 !important;
+}
+
+
+.course-step6-page .accordion-body a {
+    color: #0055B7 !important;
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+        color: rgb(47, 93, 124) !important;
+    }
+}
+
+// Step 6: Adding grey to headers and card in the background
+
+.course-step6-page .p-5.mb-4.bg-light.rounded-3 {
+    background-color: #e9ecef !important;
+    padding-bottom: 4rem !important;
+}
+
+.course-step6-page .optionalPLO thead th {
+    background-color: #e9ecef !important;
 }

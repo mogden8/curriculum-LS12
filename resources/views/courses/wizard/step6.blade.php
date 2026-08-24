@@ -6,6 +6,7 @@
 <!--Link for FontAwesome Font for the arrows for the accordions.-->
 <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" rel="stylesheet" type="text/css" >
 
+<div class="course-step6-page">
 <div>
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -615,6 +616,7 @@
         </div>
     </div>
 </div>
+</div>
 
 
 <script>
@@ -700,7 +702,9 @@
 
 </script>
 
-<style>
+// Commenting out the below to allow the border to appear 
+
+<!-- <style>
 
 table, tbody, td, tfoot, th, thead, tr {
     border: none;
@@ -711,7 +715,7 @@ table, tbody, td, tfoot, th, thead, tr {
         border-bottom-color: rgb(0, 0, 0);
 }
 
-</style>
+</style> -->
 
 
 @endsection
