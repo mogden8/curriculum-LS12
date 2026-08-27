@@ -893,17 +893,22 @@ th.table-secondary::after {
     }
 }
 
-.course-step7-page .table-secondary th {
+.course-step7-page .table-primary a {
     color: #0055B7 !important;
     text-decoration: none !important;
     &:hover {
         text-decoration: underline !important;
-        color: rgb(47, 93, 124) !important;
     }
 }
 
-.course-step7-page .optionalPLO thead th {
-    background-color: #e9ecef !important;
+.course-step7-page .table-light a {
+    color: #0055B7 !important;
+    text-decoration: none !important;
+
+    &:hover {
+        text-decoration: underline !important;
+        color: rgb(47, 93, 124) !important;
+    }
 }
 
 .course-step7-page .text-primary {
@@ -911,12 +916,9 @@ th.table-secondary::after {
 }
 
 // .course-step7-page .table-primary,
-// .course-step7-page .table-primary th {
-//     background-color: #f8f0fa !important;
-   
-// }
-
-// .course-step7-page .table-secondary {
-//     background-color: #d6d8db !important;
-
+// .course-step7-page .table-primary th,
+// .course-step7-page .table-secondary,
+// .course-step7-page .table-secondary td {
+//     // background-color: #f8f0fa !important;
+//     background-color: #ffff !important;
 // }
