@@ -98,7 +98,7 @@
 
 
 
-                    <div class="card mt-4 mb-4">
+                    <div class="card mt-4 mb-4 assessment-methods-card">
 
                         <h5 class="card-header">
                             Student Assessment Methods
@@ -138,7 +138,7 @@
                         </div>
                     </div>
 
-                    <div class="card mt-4 mb-4">
+                    <div class="card mt-4 mb-4 learning-activities-card">
 
                         <h5 class="card-header">
                             Teaching and Learning Activities

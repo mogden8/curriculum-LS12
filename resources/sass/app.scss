@@ -915,10 +915,22 @@ th.table-secondary::after {
     color: #40B4E5 !important;
 }
 
-// .course-step7-page .table-primary,
-// .course-step7-page .table-primary th,
-// .course-step7-page .table-secondary,
-// .course-step7-page .table-secondary td {
-//     // background-color: #f8f0fa !important;
-//     background-color: #ffff !important;
-// }
+// Step 7: Adding grey to the last row's background
+.course-step7-page .assessment-methods-card .table tr:last-child td,
+.course-step7-page .learning-activities-card .table tr:last-child td {
+    background-color: #d6d8db !important;
+}
+
+// Step 7: Make the card backgrounds white
+.course-step7-page .card {
+    background-color: #fff !important;
+}
+
+// Step 7: Make the table rows light grey
+.course-step7-page table.table.table-light.table-bordered.mb-4 tr td{
+    background-color: #f8f9fa !important;
+}
+
+.course-step7-page table.table.table-light.table-bordered tr:not(:last-child) td {
+    background-color: #f8f9fa !important;
+}
