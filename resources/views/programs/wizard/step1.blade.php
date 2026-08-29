@@ -227,7 +227,7 @@
                         </div>
                     </form>
 
-                    <div class="card m-3">
+                    <div class="card m-3 plo-categories-card">
                         <h5 class="card-header wizard text-start">
                             Categories (Can be used to group PLOs)
                             <div class="float-end">
@@ -239,7 +239,7 @@
 
                         <div class="card-body">
                             @if($ploCategories->count() < 1)
-                                <div class="alert alert-warning wizard">
+                                <div class="alert alert-warning full-width-alert">
                                     <i class="bi bi-exclamation-circle-fill pe-2 fs-5"></i>There are no PLO categories set for this program yet.
                                 </div>
 
@@ -357,7 +357,7 @@
                         <div class="card-body">
 
                             @if ( count($plos) < 1)
-                                <div class="alert alert-warning wizard">
+                                <div class="alert alert-warning  full-width-alert">
                                     <i class="bi bi-exclamation-circle-fill"></i>There are no program learning outcomes for this program.
                                 </div>
                             @else
@@ -405,7 +405,7 @@
                                                         <tr class="mt-5">
                                                             <th class="text-start" colspan="4" style="background-color: #ebebeb;">{{$plo->plo_category}}</th>
                                                         </tr>
-                                                        <tr class="alert alert-warning wizard">
+                                                        <tr class="alert alert-warning full-width-alert">
                                                             <th colspan="4" style="background-color: #fff3cd;"><i class="bi bi-exclamation-circle-fill pe-2 fs-5"></i>There are no program learning outcomes set for this PLO category. </th>
                                                         </tr>
                                                     @endif
